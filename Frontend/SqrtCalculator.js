@@ -86,7 +86,14 @@ function Calculate(val) {
 
     let precisionVal = precisionInput.value;
 
-    if (precisionVal < 0 || precisionVal > 100) {
+    if (precisionVal < 0){
+        return {
+            success: false,
+            error: 'err_negative_precision'
+        }
+    }
+
+    if (precisionVal > 100) {
         return {
             success: false,
             error: 'err_too_large_precision'
