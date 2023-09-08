@@ -31,6 +31,8 @@ const dictionary = {
         'err_too_large_precision': 'Error: Maximum number of decimal places = 100',
         'err_floating_precision' : 'Error: The number of decimal places is an integer',
         'err_negative_precision': 'Error: Number of decimal places is a non-negative integer',
+        'text_too_large_res_or_zero': 'Error: The calculation result is too large or division by zero has occurred',
+        'text_too_small_res_or_zero': 'Error: The calculation result is too small or division by zero has occurred',
         'text_developed': 'Developed'
     },
     'ch': {
@@ -47,6 +49,8 @@ const dictionary = {
         'err_too_large_precision': '错误：最大小数位数 = 100',
         'err_floating_precision' : '错误：小数位数是整数',
         'err_negative_precision': '错误：小数位数 - 非负整数',
+        'text_too_large_res_or_zero': '错误： 计算结果过大或出现除以零的情况',
+        'text_too_small_res_or_zero': '错误： 计算结果太小或出现除以零的情况',
         'text_developed': '开发者'
     },
     'sp': {
@@ -63,6 +67,8 @@ const dictionary = {
         'err_too_large_precision': 'Error: Número máximo de decimales = 100',
         'err_floating_precision' : 'Error: el número de decimales es un número entero',
         'err_negative_precision': 'Error: el número de decimales es un número entero no negativo',
+        'text_too_large_res_or_zero': 'Error: El resultado del cálculo es demasiado grande o se ha producido una división por cero',
+        'text_too_small_res_or_zero': 'Error: El resultado del cálculo es demasiado pequeño o se ha producido una división por cero',
         'text_developed': 'Desarrollado por'
     }
 };
