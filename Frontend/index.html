@@ -9,7 +9,7 @@
 <body>
     <header class="header">
         <div>
-            <h4 style="margin: 0px">Sqrt Calculator v1</h4>
+            <h4 style="margin: 0px">Sqrt Calculator v2</h4>
         </div>
         <div>
             <span class="ILanguage" key="text_language"></span>
@@ -34,7 +34,7 @@
                 <br>
                 <label for="number_input" class="ILanguage" key="enter_number"></label>
                 <br>
-                 <input id="number_input" type="text">
+                <textarea id="number_input" type="text"></textarea>
 
                 <br>
             </div>
@@ -80,7 +80,7 @@
 
         <hr>
         <h4 style="margin-bottom: 5px;" class="ILanguage" key="text_result"></h4>
-        <span style="margin-top: 5px;" id="number_result"></span>
+        <div style="margin-top: 5px; " id="number_result"></div>
         
     </section>
 
@@ -88,6 +88,7 @@
         <span class="ILanguage" key="text_developed"></span>: 123123
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js" integrity="sha512-JLWfLWde2M173Tt7ju+tBz8OSzcfpCmkwK75AE2ErZYBWxN9143UWlIoHq8KrfBusmLu34d6SmHu3JwJHbufnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="Dictionary.js"></script>
     <script src="SqrtCalculator.js"></script>
     <script src="Tests.js"></script>

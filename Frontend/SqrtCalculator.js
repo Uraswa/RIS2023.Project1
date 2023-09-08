@@ -1,3 +1,10 @@
+math.config({
+    number: 'BigNumber',      // Default type of number:
+                              // 'number' (default), 'BigNumber', or 'Fraction'
+    precision: 400
+})
+
+
 //START LANGUAGE SECTION
 
 let curLang = 'ru';
@@ -19,21 +26,25 @@ const precisionInput = document.getElementById('precision_input');
 const rootExponentInput = document.getElementById('root_exponent_input');
 const resultView = document.getElementById('number_result');
 
-function renderError(error_key) {
-    resultView.innerHTML = '<span class="ILanguage" key="' + error_key + '">' + (dictionary[curLang][error_key] || '') + '</span>'
+function getError(error_key){
+   return '<span class="ILanguage" key="' + error_key + '">' + (dictionary[curLang][error_key] || '') + '</span>';
 }
 
-function Calculate(val) {
+function renderError(error_key) {
+    resultView.innerHTML = getError(error_key);
+}
+
+function Calculate(val, precisionVal, rootExponent) {
     val = val
-        .replaceAll('sin', 'Math.sin')
-        .replaceAll('cos', 'Math.cos')
         .replaceAll('ctg', 'cot')
-        .replaceAll('tg', 'Math.tan')
-        .replaceAll('sqrt', 'Math.sqrt')
-        .replaceAll('pi', 'Math.PI');
+        .replaceAll('tg', 'tan')
+
+        // .replaceAll('ctg', 'cot')
+        // .replaceAll('tg', 'Math.tan')
+        // .replaceAll('sqrt', 'Math.sqrt')
+        // .replaceAll('pi', 'Math.PI');
 
     if (val === "") {
-        resultView.innerHTML = "";
         return {
             success: false,
             error: ''
@@ -41,7 +52,7 @@ function Calculate(val) {
     }
 
     try {
-        val = Number.parseFloat(eval(val));
+        val = math.evaluate(val);
     } catch (e) {
 
         if (e instanceof ReferenceError) {
@@ -61,14 +72,9 @@ function Calculate(val) {
         throw e;
     }
 
-    let rootExponent = Number.parseFloat(rootExponentInput.value);
+    //let rootExponent = Number.parseFloat(rootExponentInput.value);
 
-    if (val < 0 && rootExponent % 2 === 0) {
-        return {
-            success: false,
-            error: 'err_negative_value'
-        }
-    }
+
 
     if (rootExponent === 0) {
         return {
@@ -77,14 +83,7 @@ function Calculate(val) {
         }
     }
 
-    if (rootExponent % 1 !== 0 && val < 0) {
-        return {
-            success: false,
-            error: 'err_negative_value_float_root_exponent'
-        }
-    }
-
-    let precisionVal = precisionInput.value;
+    //let precisionVal = precisionInput.value;
 
     if (precisionVal < 0){
         return {
@@ -93,7 +92,7 @@ function Calculate(val) {
         }
     }
 
-    if (precisionVal > 100) {
+    if (precisionVal > 509) {
         return {
             success: false,
             error: 'err_too_large_precision'
@@ -107,41 +106,100 @@ function Calculate(val) {
         }
     }
 
-    // костыль чтобы без муавра. Например, кубический корень из -8
 
-    let sqVal = 0;
-    if (val > 0) {
-        sqVal = Math.pow(val, 1 / rootExponent);
-    } else {
-        sqVal = -Math.pow(Math.abs(val), 1 / rootExponent);
+
+    let sqVal = [];
+    let arg = val < 0 ? 'pi' : '0';
+
+    let formattedResult = math.format(val,{notation: 'fixed', precision: Number.parseInt(precisionVal)})
+
+    let muavr = (k) => {
+
+        let imagine = math.evaluate('sqrt(abs('+formattedResult+')) * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        let re = math.evaluate('sqrt(abs('+formattedResult+')) * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+
+        if (re === Number.NEGATIVE_INFINITY){
+            return {
+                error: 'text_too_small_res_or_zero'
+            }
+        } else if (re === Number.POSITIVE_INFINITY){
+            return {
+                error: 'text_too_large_res_or_zero'
+            }
+        } else if (imagine === Number.NEGATIVE_INFINITY){
+            return {
+                error: 'text_too_small_res_or_zero'
+            }
+        } else if (imagine === Number.POSITIVE_INFINITY){
+            return {
+                error: 'text_too_large_res_or_zero'
+            }
+        } else if (Number.isNaN(imagine)){
+            return {
+                error: 'err_nan'
+            }
+        }
+
+        let res = '';
+
+        res += math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+
+
+        if (!math.equal(imagine, 0)){
+            res += " " + (math.larger(imagine, 0) ? "+ " : '') + (math.equal(imagine, 1) ? '' : math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)})) + "i"
+        }
+
+        return {
+            value: res,
+            real: re.toString(),
+            imagine: imagine.toString()
+        }
     }
 
-    // вообще до сюда не должно дойти, но если вдруг что-то еще не учли здесь выведется
+    let fineResultSet = new Set();
 
-    if (Number.isNaN(sqVal)) {
-        return {
-            success: false,
-            error: 'err_nan'
+    for (let i = 0; i < rootExponent; i++){
+        let val = muavr(i);
+
+        if (!val.error && !fineResultSet.has(val.value)){
+            sqVal.push(val)
+            fineResultSet.add(val.value)
+        } else if (val.error){
+            sqVal.push(val)
         }
     }
 
     //print("Value", val, "Sq value", sqVal);
     return {
         success: true,
-        value: sqVal.toFixed(precisionVal)
+        values: sqVal
     }
 }
 
 function workCalculation() {
     let expression = numberInput.value;
-    let result = Calculate(expression);
+    let result = Calculate(expression, precisionInput.value, Number.parseFloat(rootExponentInput.value));
 
+    let html = '';
     if (result.success) {
-        resultView.innerHTML = result.value;
-        return;
+
+        for (let val of result.values){
+
+            if (val.error){
+                html += getError(val.error)
+            } else {
+                html += '<span style="line-break: anywhere; max-width: 100%">'+val.value+'</span><hr>';
+            }
+
+            html += '<br>'
+        }
     }
 
-    renderError(result.error);
+    if (result.error){
+        html += getError(result.error);
+    }
+
+    resultView.innerHTML = html;
 }
 
 numberInput.addEventListener('input', workCalculation);
