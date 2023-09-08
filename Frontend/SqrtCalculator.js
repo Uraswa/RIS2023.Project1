@@ -72,6 +72,8 @@ function Calculate(val, precisionVal, rootExponent) {
         throw e;
     }
 
+    console.log('Value: ' + val + "; " + rootExponent + "; " + precisionVal);
+
     //let rootExponent = Number.parseFloat(rootExponentInput.value);
 
 
@@ -115,8 +117,10 @@ function Calculate(val, precisionVal, rootExponent) {
 
     let muavr = (k) => {
 
-        let imagine = math.evaluate('sqrt(abs('+formattedResult+')) * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
-        let re = math.evaluate('sqrt(abs('+formattedResult+')) * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        let imagine = math.evaluate('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        let re = math.evaluate('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+
+        //console.log('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))')
 
         if (re === Number.NEGATIVE_INFINITY){
             return {
