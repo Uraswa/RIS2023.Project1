@@ -72,7 +72,7 @@ function Calculate(val, precisionVal, rootExponent) {
         throw e;
     }
 
-    console.log('Value: ' + val + "; " + rootExponent + "; " + precisionVal);
+    //console.log('Value: ' + val + "; " + rootExponent + "; " + precisionVal);
 
     //let rootExponent = Number.parseFloat(rootExponentInput.value);
 
