@@ -121,7 +121,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
         //Caused when some mathematical operator wasn't given neccessery arguments, or parser didn't found pair ()
         if (e instanceof ReferenceError) {
-            console.log(e.message);
+
             allDoneCallback({
                 success: false,
                 error: 'err_unknown_symbol'
@@ -157,7 +157,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     }
 
     // in case of unpredicted error.
-    if (math.format(expressionValue) == 'NaN'){
+    if (!expressionValue || math.format(expressionValue) == 'NaN'){
         allDoneCallback({
             error: 'err_nan'
         });
@@ -192,7 +192,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
     }
 
-    if (rootExponent === 0) {
+    if (rootExponent == "" || rootExponent == "0" || rootExponent === 0) {
         allDoneCallback({
             success: false,
             error: 'err_wrong_root_exponent_value'
@@ -200,7 +200,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
     }
 
-    if (precisionVal < 0){
+    if (precisionVal < 0 || precisionVal == ""){
        allDoneCallback({
             success: false,
             error: 'err_negative_precision'
@@ -362,7 +362,7 @@ function workCalculation() {
             }
         }
 
-        //each sqVal may contain error, but the functi  on can too.
+        //each sqVal may contain error, but the function  on can too.
         //for example rootExponent = 0
         //error may be object, when contains custom data
         if (result.error && result.error.error_key){
