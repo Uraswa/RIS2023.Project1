@@ -12,30 +12,31 @@
 
 </head>
 <body>
-    <header class="header">
-        <div>
-            <h4 style="margin: 0px">Sqrt Calculator v2.9</h4>
-        </div>
-        <div>
-            <span class="ILanguage" key="text_language"></span>
-            <button class="language_btn" key="ru" onclick="changeLanguage('ru')">Русский</button>
-            <button class="language_btn" key="en" onclick="changeLanguage('en')">English</button>
-            <button class="language_btn" key="ch" onclick="changeLanguage('ch')">中国人</button>
-            <button class="language_btn" key="sp" onclick="changeLanguage('sp')">Español</button>
-        </div>
+<header class="header">
+    <div>
+        <h4 style="margin: 0px">Sqrt Calculator v3</h4>
+    </div>
+    <div>
+        <span class="ILanguage" key="text_language"></span>
+        <button class="language_btn" key="ru" onclick="changeLanguage('ru')">Русский</button>
+        <button class="language_btn" key="en" onclick="changeLanguage('en')">English</button>
+        <button class="language_btn" key="ch" onclick="changeLanguage('ch')">中国人</button>
+        <button class="language_btn" key="sp" onclick="changeLanguage('sp')">Español</button>
+    </div>
 
-    </header>
-    <section id="content-section">
+</header>
+<section id="content-section">
 
+    <div class="calculator-outer">
         <div class="calculator">
             <div class="calculator_left">
-                <label for="root_exponent_input"  class="ILanguage" key="enter_sqrt_extent"></label>
+                <label for="root_exponent_input" class="ILanguage" key="enter_sqrt_extent"></label>
                 <br>
-                <input id="root_exponent_input" value="2" type="number" >
+                <input id="root_exponent_input" value="2" type="number">
                 <br>
-                <label for="precision_input"  class="ILanguage" key="enter_precision"></label>
+                <label for="precision_input" class="ILanguage" key="enter_precision"></label>
                 <br>
-                <input id="precision_input" min="0" value="2" type="number" >
+                <input id="precision_input" min="0" value="2" type="number">
                 <br>
                 <label for="number_input" class="ILanguage" key="enter_number"></label>
                 <br>
@@ -61,7 +62,7 @@
                 <button class="calculator_button_key" onclick="workInput('4')">4</button>
                 <button class="calculator_button_key" onclick="workInput('5')">5</button>
 
-                <button class="calculator_button_key" onclick="workInput('6')" >6</button>
+                <button class="calculator_button_key" onclick="workInput('6')">6</button>
                 <button class="calculator_button_key" onclick="workInput('-')">-</button>
                 <button class="calculator_button_key" onclick="workInput('1')">1</button>
                 <button class="calculator_button_key" onclick="workInput('2')">2</button>
@@ -81,24 +82,88 @@
                 <button class="calculator_button_key" id="calculate_btn" onclick="workInput('=')">=</button>
 
             </div>
+            <hr>
+            <h4 style="margin-bottom: 5px;" class="ILanguage" key="text_result"></h4>
+            <div style="margin-top: 5px; " id="number_result"></div>
         </div>
+        <div class="docs" style="width: 100%; background: white;">
 
-        <hr>
-        <h4 style="margin-bottom: 5px;" class="ILanguage" key="text_result"></h4>
-        <div style="margin-top: 5px; " id="number_result"></div>
-        
-    </section>
+            <h1>ДОКУМЕНТАЦИЯ ПРОГРАММЫ SQRT Calculator</h1>
+            <p>На данной странице вы можете найти пользовательское руководство и описание программы</p>
+            <p>Данный программный продукт был создан командой разработчиков «Russian Program Dealer»</p>
+            <h4>FAQ</h4>
+            <ul>
+                <li>Что делать если в поле ввода появилась ошибка?</li>
+                <p>– Вам необходимо исправить некорректное действие в выражении или же очистить окна ввода и вывода при
+                    помощи кнопки С</p>
+                <li>Что делать если здесь нет нужной мне информации?</li>
+                <p>– Вы всегда можете обратиться в техподдержку при помощи нашего Telegram бота.</p>
+            </ul>
 
-    <footer style="">
-        <span class="ILanguage" key="text_developed"></span>: 123123
-    </footer>
+            <h4>ОПИСАНИЕ ПРОГРАММЫ</h4>
+            <p>Программный продукт «SQRT Сalculator» предназначен для извлечения квадратного корня из чисел.</p>
+            <p>Его GUI интерфейс включает в себя:</p>
+            <ul>
+                <li>Окно для ввода показателя корня</li>
+                <li>Окно для ввода количества знаков после запятой</li>
+                <li>Окно для ввода вычисляемого выражения</li>
+                <li>Окно вывода результата</li>
+                <li>28 кнопок для ввода выражения</li>
+                <li>Меню переключения языка</li>
+                <p>Вводить выражения можно не только с помощью графического интерфейса, но и с помощью клавиатуры</p>
+            </ul>
 
-    <script src="math.js" ></script>
-    <script src="CalculateWebWorker.js"></script>
-    <script src="MathWorker.js"></script>
-    <script src="Dictionary.js"></script>
-    <script src="SqrtCalculator.js"></script>
-    <script src="index.js"></script>
-    <script src="Tests.js"></script>
+            <p>Программа разработана при помощи языка программирования javascript и языка разметки html</p>
+
+            <h4>РУКОВОДСТВО ДЛЯ ПОЛЬЗОВАТЕЛЯ</h4>
+            <h5>НАЧАЛО РАБОТЫ</h5>
+            <ol>
+                <li>Скачать архив с сайта github по ссылке: https://github.com/Uraswa/RIS2023.Project1</li>
+                <li>Разархивировать архив в отдельную папку</li>
+                <li>Запустить файл index.html, находящийся в папке Frontend</li>
+            </ol>
+            <h4>СПРАВКА ПРОГРАММЫ</h4>
+            <ol>
+                <li> 'C' – очистка окна ввода и вывода</li>
+                <li> '<-' – удалить последний символ в выражении</li>
+                <li> 'sqrt' – извлечение квадратного корня</li>
+                <li> '+-' – изменения знака числа (унарный минус)</li>
+                <li> 'pi' – число пи</li>
+                <li> '%' – остаток от деления числа</li>
+                <li> '+' – математическое сложение</li>
+                <li> 'sin' – вычисление синуса числа</li>
+                <li> 'cos' – вычисление косинуса числа</li>
+                <li> 'tg' – вычисление тангенса числа</li>
+                <li> 'ctg' – вычисление котангенса числа</li>
+                <li> '-' – математическое вычитание</li>
+                <li> '*' – математическое умножение</li>
+                <li> '/' – математическое деление (при делении числа на ноль программа уведомляет о некорректности
+                    операции сообщением-ошибкой «ERROR»)
+                </li>
+                <li> '.' – разделитель целой и дробной части числа</li>
+                <li> '(' и ')' – скобки(используются для задания приоритета операций)</li>
+                <li> '=' – вывод результата</li>
+                <li> Кнопки '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' используются для введения чисел</li>
+            </ol>
+            <h4>ПРОГРАММНЫЕ УВЕДОМЛЕНИЯ:</h4>
+            <ol>
+                <li>«Infinity NaNi» - указано некорректное действие(деление числа на 0)</li>
+                <li>«Ошибка: Некоректный символ» - в поле ввода выражения введен символ, неподдерживаемый программой
+                </li>
+            </ol>
+
+        </div>
+    </div>
+
+
+</section>
+
+<script src="math.js"></script>
+<script src="CalculateWebWorker.js"></script>
+<script src="MathWorker.js"></script>
+<script src="Dictionary.js"></script>
+<script src="SqrtCalculator.js"></script>
+<script src="index.js"></script>
+<script src="Tests.js"></script>
 </body>
 </html>
