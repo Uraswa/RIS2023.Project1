@@ -1,3 +1,5 @@
+//app entry point
+
 changeLanguage('ru');
 
 //math library configuration.

@@ -1,4 +1,5 @@
-
+//if not allowed, then even if browser supports them, they will be disabled
+let allowWebWorkers = true;
 //when is false, some debug functions will not work, for example print or tests
 let debugVersion = true;
 
@@ -82,6 +83,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         .replace(/=/g, '')
         .replace(/[\r\n]/g, '');
 
+    //safety check, to ensure that no special symbols will be in expression
     const unknownCharacterRegex = /[^a-zA-Z0-9 \.%\+\-\/\*\(\)\^]/gm;
     const unknownRes = unknownCharacterRegex.exec(expression);
     if (unknownRes != null) {
@@ -236,7 +238,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
 
     //some browsers do not support WebWorkers, we must count this case too
-    if (typeof(Worker) !== "undefined"){
+    if (allowWebWorkers && typeof(Worker) !== "undefined"){
 
         // functions that distributes work between webWorkers
         MultiThreadCalculation(formattedResult, rootExponent, precisionVal, arg, allDoneCallback);
@@ -283,24 +285,27 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         //1 + 1i -> 1 + i
         //1 - 1i -> 1 -i
         //etc.
-        let realFormatted = math.format(re,{notation: 'fixed', precision: precisionVal});
-        let hasRealPart = !math.equal(realFormatted, "0");
+        let realFormatted = math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+        realFormatted = realFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
+
+        let hasRealPart = ! math.equal(realFormatted, "0")
 
         if (hasRealPart){
             res += realFormatted;
         }
 
-        let imagineFormatted =  math.format(imagine,{notation: 'fixed', precision: precisionVal});
+        let imagineFormatted =   math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+        imagineFormatted = imagineFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
-        if (!self.math.equal(imagineFormatted, "0")){
+        if (! math.equal(imagineFormatted, "0")){
 
-            if (self.math.equal(imagineFormatted, '-1')){
-                imagineFormatted = '-';
-            } else if (self.math.equal(imagineFormatted, '1')){
+            if (math.equal(imagineFormatted, '-1')){
+                imagineFormatted = '-'
+            } else if (math.equal(imagineFormatted, '1')){
                 imagineFormatted = '';
             }
 
-            res += " " + ( self.math.larger(imagine, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i";
+            res += " " + ( math.larger(imagine, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i"
         }
 
         return {
@@ -359,6 +364,7 @@ function workCalculation() {
 
         //each sqVal may contain error, but the functi  on can too.
         //for example rootExponent = 0
+        //error may be object, when contains custom data
         if (result.error && result.error.error_key){
             html += customError(result.error.error_key, result.error.custom)
         } else if (result.error){
@@ -424,18 +430,6 @@ function workInput(character) {
 
 //end input
 
-
-// initialization
-
-
-changeLanguage(curLang);
-
-//math library configuration.
-//max precision if around 508, but for safety value 400 is used
-math.config({
-    number: 'BigNumber',
-    precision: 400
-})
 
 
 // service

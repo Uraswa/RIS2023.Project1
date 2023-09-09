@@ -1,3 +1,5 @@
+//dictionary for multilanguage support
+
 const dictionary = {
     'ru': {
         'err_negative_value': 'Ошибка: отрицательное число под корнем четной степени!',

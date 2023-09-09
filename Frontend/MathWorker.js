@@ -1,6 +1,10 @@
-const threads = 16;
+const threads = (navigator.hardwareConcurrency || 4)
 
+/**
+ * Math thread initialization
+ */
 function MathWorker () {
+    //create object url is needed, because chrome do not start web worker when localhost
     this.worker = new Worker(URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'})));
     this.callbacks = {}
     this.seq = 0
@@ -49,7 +53,14 @@ MathWorker.prototype.RootEvaluationMessage = function evaluate (formattedValue, 
     this.worker.postMessage(JSON.stringify(request))
 }
 
-
+/**
+ * Distribute math root evaluation process between threads function
+ * @param formattedValue
+ * @param arg
+ * @param rootExponent
+ * @param precision
+ * @param allDoneCallback
+ */
 function MultiThreadCalculation(formattedValue, rootExponent, precision, arg, allDoneCallback){
     const totalK = rootExponent;
     let doneParallelK = 0;
@@ -87,7 +98,7 @@ function MultiThreadCalculation(formattedValue, rootExponent, precision, arg, al
 
 }
 
-
+//web workers initialization
 const _MathWorkers = [];
 
 for (let i = 0; i < threads; i++){

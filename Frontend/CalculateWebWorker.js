@@ -10,6 +10,7 @@ function worker_function() {
 // create a parser
     const parser = self.math.parser()
 
+    //muavr formula responder, similiar to one on the main thread
     self.addEventListener('message', function (event) {
         const request = JSON.parse(event.data)
 
@@ -24,7 +25,7 @@ function worker_function() {
 
         let res = '';
         let realFormatted = self.math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
-        realFormatted = realFormatted.replace(/[\.]*[0]+$/gm, '');
+        realFormatted = realFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
         let hasRealPart = ! self.math.equal(realFormatted, "0")
 
@@ -33,7 +34,7 @@ function worker_function() {
         }
 
         let imagineFormatted =   self.math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
-        imagineFormatted = imagineFormatted.replace(/[\.]*[0]+$/gm, '');
+        imagineFormatted = imagineFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
         if (! self.math.equal(imagineFormatted, "0")){
 
