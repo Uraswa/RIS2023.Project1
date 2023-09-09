@@ -12,19 +12,22 @@ function it(desc, func) {
 
 
 function calcAssertEqual(res, expRes) {
-    var num = parseFloat(Math.pow(res.value, 2));
-    expRes = parseFloat(expRes);
-    console.log(res, num, expRes);
     if (res.success === true){
-        if (num !== expRes) {
-            throw new Error(`expected output: ${expRes}; current output: ${num}`);
+        console.log(res.length);
+        for (let i = 0; i < res.length; i++){
+            let realNum = parseFloat(value.real);
+            let imagNum = parseFloat(value.imagine);
+            console.log(Math.pow(realNum, 2) - Math.pow(imagNum, 2), expRes.real);
+            console.log( 2 * realNum * imagNum, expRes.imaginary);
+            
+            if ((Math.pow(realNum, 2) - Math.pow(imagNum, 2) !== expRes.real) || ( 2 * realNum * imagNum !== expRes.imaginary)){
+                throw new Error(`expected real: ${expRes.real}, imaginary: ${expRes.imaginary}; got real: ${realNum}, imaginary: ${imagNum}`);
+            }
         }
-        
     }
     else{
         throw new Error(`expected output: ${expRes}; instead error raised: ${res.error}`);
     }
-
 }
 
 function calcAssertError(res, expRes) {
@@ -40,7 +43,7 @@ function calcAssertError(res, expRes) {
 }
 
 function runTests(tests) {
-    for (var i = 0; i < tests.length; i++) {
+    for (let i = 0; i < tests.length; i++) {
         tests[i]();
     }
 }
@@ -50,58 +53,118 @@ var Tests = [
     // "Calculate" function tests
     function test1() {
         it('Base Test 1', function() {
-            var input = '4';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = '4';
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            console.log(res)
+            res.forEach((element) => {
+                console.log(element);
+            });
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test2() {
         it('Base Test 2', function() {
-            var input = '9';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = '9';
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test3() {
         it('Irrational Test 1', function() {
-            var input = '2';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = '2';
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test4() {
         it('Irrational Test 2', function() {
-            var input = '5';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = '5';
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test5() {
         it('Random Number Test 1', function() {
-            var input = Math.floor((Math.random() + 1)).toString();
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = Math.floor((Math.random() + 1)).toString();;
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test6() {
         it('Random Number Test 2', function() {
-            var input =  (Math.floor(((Math.random() + 1))) * 1000).toString();
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = (Math.floor(((Math.random() + 1))) * 1000).toString();
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test7() {
         it('Random Number Test 3', function() {
-            var input = (Math.floor((Math.random() + 1)) * 100000000).toString();
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = (Math.floor((Math.random() + 1)) * 100000000).toString();
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test8() {
         it('Test Zero', function() {
-            var input = '0';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
+            let real = '0'; 
+            let imaginary = '0';
+            let presVal = 2;
+            let rootExp = 2;
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let expRes = {
+                real: real,
+                imaginary: imaginary
+            }
+            calcAssertEqual(res, expRes);
           });
     },
     function test9() {

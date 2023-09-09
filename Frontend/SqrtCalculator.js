@@ -148,7 +148,6 @@ function Calculate(val, precisionVal, rootExponent) {
 
         res += math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
 
-
         if (!math.equal(imagine, 0)){
             res += " " + (math.larger(imagine, 0) ? "+ " : '') + (math.equal(imagine, 1) ? '' : math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)})) + "i"
         }
@@ -172,8 +171,11 @@ function Calculate(val, precisionVal, rootExponent) {
             sqVal.push(val)
         }
     }
-
-    //print("Value", val, "Sq value", sqVal);
+    sqVal.forEach((element) => {
+            //console.log(element);
+        }
+    );
+    
     return {
         success: true,
         values: sqVal
