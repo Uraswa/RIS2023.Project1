@@ -61,8 +61,6 @@ function MultiThreadCalculation(formattedValue, rootExponent, precision, arg, al
         success: true
     };
 
-    let alreadyResults = new Set();
-
     while (doneParallelK != totalK){
 
         let thread = _MathWorkers[index];

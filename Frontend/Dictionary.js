@@ -17,7 +17,8 @@ const dictionary = {
         'text_too_small_res_or_zero': 'Ошибка: Результат вычисления слишком мал, либо произошло деление на ноль',
         'text_developed': 'Разработано',
         'text_loading': 'Производится вычисление...',
-        'err_variable': 'Ошибка: неизвестная переменная'
+        'err_variable': 'Ошибка: неизвестная переменная',
+        'err_unknown_character': 'Ошибка, Неизвестный специальный символ: '
     },
     'en': {
         'err_negative_value': 'Error: wrong sqrt argument (must be non-negative)',
