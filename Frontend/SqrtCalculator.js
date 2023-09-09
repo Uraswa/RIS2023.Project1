@@ -25,6 +25,7 @@ const numberInput = document.getElementById('number_input');
 const precisionInput = document.getElementById('precision_input');
 const rootExponentInput = document.getElementById('root_exponent_input');
 const resultView = document.getElementById('number_result');
+const calculateBtn = document.getElementById("calculate_btn");
 
 function getError(error_key){
    return '<span class="ILanguage" key="' + error_key + '">' + (dictionary[curLang][error_key] || '') + '</span>';
@@ -34,86 +35,143 @@ function renderError(error_key) {
     resultView.innerHTML = getError(error_key);
 }
 
-function Calculate(val, precisionVal, rootExponent) {
+function Calculate(val, precisionVal, rootExponent, allDoneCallback) {
     val = val
         .replaceAll('ctg', 'cot')
         .replaceAll('tg', 'tan')
+        .replaceAll('=', '')
 
         // .replaceAll('ctg', 'cot')
         // .replaceAll('tg', 'Math.tan')
         // .replaceAll('sqrt', 'Math.sqrt')
         // .replaceAll('pi', 'Math.PI');
 
+
     if (val === "") {
-        return {
+        allDoneCallback({
             success: false,
             error: ''
-        }
+        })
+
+        return;
     }
+
 
     try {
         val = math.evaluate(val);
+
     } catch (e) {
 
+
         if (e instanceof ReferenceError) {
-            return {
+            allDoneCallback({
                 success: false,
                 error: 'err_unknown_symbol'
-            }
+            })
+            return;
         }
 
         if (e instanceof SyntaxError) {
-            return {
+            allDoneCallback({
                 success: false,
                 error: 'err_unknown_symbol'
-            }
+            })
+            return;
         }
 
-        throw e;
+
+        if (e.message.includes("Undefined symbol")){
+            allDoneCallback({
+                error: 'err_variable'
+            })
+            return;
+        }
+
+        allDoneCallback({
+            error: 'err_nan'
+        })
+
+        return;
+
     }
 
-    //console.log('Value: ' + val + "; " + rootExponent + "; " + precisionVal);
-
-    //let rootExponent = Number.parseFloat(rootExponentInput.value);
 
 
+    if (math.format(val) == 'NaN'){
+        allDoneCallback({
+            error: 'err_nan'
+        })
+        return;
+    }
+
+    if (math.format(val) == "Infinity"){
+        allDoneCallback({
+            error: 'text_too_large_res_or_zero'
+        })
+        return;
+    }
+
+    if (math.format(val) == "-Infinity"){
+        allDoneCallback({
+            error: 'text_too_small_res_or_zero'
+        })
+        return;
+    }
+
+    if (math.equal(val, "0")){
+        allDoneCallback({
+            success: true,
+            values: [{
+                value: "0"
+            }]
+        })
+        return;
+    }
 
     if (rootExponent === 0) {
-        return {
+        allDoneCallback({
             success: false,
             error: 'err_wrong_root_exponent_value'
-        }
+        })
+        return
     }
-
-    //let precisionVal = precisionInput.value;
 
     if (precisionVal < 0){
-        return {
+       allDoneCallback({
             success: false,
             error: 'err_negative_precision'
-        }
+        })
+        return
     }
 
-    if (precisionVal > 509) {
-        return {
+    if (precisionVal > 400) {
+        allDoneCallback({
             success: false,
             error: 'err_too_large_precision'
-        }
+        })
+        return
     }
 
     if (precisionVal % 1 !== 0) {
-        return {
+        allDoneCallback({
             success: false,
             error: 'err_floating_precision'
-        }
+        })
+        return
     }
-
-
 
     let sqVal = [];
     let arg = val < 0 ? 'pi' : '0';
 
     let formattedResult = math.format(val,{notation: 'fixed', precision: Number.parseInt(precisionVal)})
+
+
+    if (typeof(Worker) !== "undefined"){
+
+        MultiThreadCalculation(formattedResult, rootExponent, precisionVal, arg, allDoneCallback);
+        return;
+    }
+
 
     let muavr = (k) => {
 
@@ -146,11 +204,24 @@ function Calculate(val, precisionVal, rootExponent) {
 
         let res = '';
 
-        res += math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+        let realFormatted = math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+        let hasRealPart = !math.equal(realFormatted, "0")
 
+        if (hasRealPart){
+            res += realFormatted;
+        }
 
-        if (!math.equal(imagine, 0)){
-            res += " " + (math.larger(imagine, 0) ? "+ " : '') + (math.equal(imagine, 1) ? '' : math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)})) + "i"
+        let imagineFormatted =  math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+
+        if (!self.math.equal(imagineFormatted, "0")){
+
+            if (self.math.equal(imagineFormatted, '-1')){
+                imagineFormatted = '-'
+            } else if (self.math.equal(imagineFormatted, '1')){
+                imagineFormatted = '';
+            }
+
+            res += " " + ( self.math.larger(imagine, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i"
         }
 
         return {
@@ -174,45 +245,46 @@ function Calculate(val, precisionVal, rootExponent) {
     }
 
     //print("Value", val, "Sq value", sqVal);
-    return {
+    allDoneCallback({
         success: true,
         values: sqVal
-    }
+    })
 }
 
 function workCalculation() {
     let expression = numberInput.value;
-    let result = Calculate(expression, precisionInput.value, Number.parseFloat(rootExponentInput.value));
+    resultView.innerHTML = '<span>'+dictionary[curLang]['text_loading']+'</span>';
 
-    let html = '';
-    if (result.success) {
+    calculateBtn.setAttribute("disabled", "");
 
-        for (let val of result.values){
+    Calculate(expression, precisionInput.value, Number.parseFloat(rootExponentInput.value), function (result) {
+        console.log('result received ', result);
+        calculateBtn.removeAttribute("disabled");
+        let html = '';
+        if (result.success) {
 
-            if (val.error){
-                html += getError(val.error)
-            } else {
-                html += '<span style="line-break: anywhere; max-width: 100%">'+val.value+'</span><hr>';
+            for (let val of result.values){
+
+                if (val.error){
+                    html += getError(val.error)
+                } else {
+                    html += '<span style="line-break: anywhere; max-width: 100%">'+val.value+'</span><hr>';
+                }
+
+                html += '<br>'
             }
-
-            html += '<br>'
         }
-    }
 
-    if (result.error){
-        html += getError(result.error);
-    }
+        if (result.error){
+            html += getError(result.error);
+        }
 
-    resultView.innerHTML = html;
+        resultView.innerHTML = html;
+    });
+
+
 }
 
-numberInput.addEventListener('input', workCalculation);
-precisionInput.addEventListener('input', workCalculation)
-rootExponentInput.addEventListener('input', workCalculation)
-
-function cot(val) {
-    return Math.pow(Math.tan(val), -1);
-}
 
 //input
 
@@ -245,6 +317,7 @@ function workInput(character) {
         numberInput.focus();
         numberInput.selectionStart = 0;
     } else if (character === '=') {
+        workCalculation()
         numberInput.focus();
         numberInput.selectionStart = cachedCursorIndex;
     } else if (character === 'cos' || character === 'sin' || character === 'ctg' || character === 'sqrt' || character === 'tg') {
@@ -259,7 +332,7 @@ function workInput(character) {
 
     numberInput.selectionEnd = numberInput.selectionStart;
 
-    workCalculation()
+
 
 }
 
@@ -270,6 +343,7 @@ function workInput(character) {
 
 
 changeLanguage(curLang);
+
 
 // service
 
