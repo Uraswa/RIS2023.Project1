@@ -18,6 +18,21 @@ function changeLanguage(language) {
     for (let text of texts) {
         text.innerHTML = dictionary[language][text.getAttribute('key')];
     }
+
+
+    let docs = document.getElementsByClassName('docs_lng');
+    for (let doc of docs){
+        let key = doc.getAttribute('key');
+        if (key != curLang){
+
+            if (doc.classList.contains('d-none')) continue
+            doc.classList.add('d-none');
+            continue
+        }
+
+        doc.classList.remove('d-none');
+
+    }
 }
 
 //END LANGUAGE SECTION
@@ -112,6 +127,18 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
     }
 
+    //if internet explorer browser
+    // if (typeof math === "undefined"){
+    //     expression = expression
+    //         .replace(/tan/g, 'Math.tan')
+    //         .replace(/sqrt/g, 'Math.sqrt')
+    //         .replace(/sin/g, 'Math.sin')
+    //         .replace(/cos/g, 'Math.cos')
+    //         .replace(/\be\b/g, 'Math.E')
+    //         .replace(/\^/g, 'Math.E')
+    // }
+
+
     //Calculated expression result will be put here
     let expressionValue = 0;
     try {
@@ -155,6 +182,8 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
 
     }
+
+    console.log(expressionValue);
 
     // in case of unpredicted error.
     if (!expressionValue || math.format(expressionValue) == 'NaN'){
@@ -204,6 +233,14 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
     }
 
+    if (rootExponent % 1 != 0){
+        allDoneCallback({
+            success: false,
+            error: "err_floating_exponent_value"
+        })
+        return;
+    }
+
 
 
     if (rootExponent == "" || rootExponent == "0" || rootExponent === 0) {
@@ -241,50 +278,81 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
     }
 
-    //array to store results.
-    //result struct format: {string value, string error}
-    let sqVal = [];
-    //argument of complex number when it is presented in trigonometry form in math
-    let arg = expressionValue < 0 ? 'pi' : '0';
-
     // prepare data to send to other thread
     let formattedResult = math.format(expressionValue,{notation: 'fixed', precision: 400});
 
+    //extracting and formatting real part of expressionValue
+    let re = undefined;
+    if (expressionValue.re){
+        re = math.format(expressionValue.re, {notation: 'fixed', precision: 400})
+    }
+
+    //extracting and formatting imagine part of expressionValue
+    let im = undefined;
+    if (expressionValue.re){
+        im = math.format(expressionValue.im, {notation: 'fixed', precision: 400})
+    }
+
+    //modulo of complex number
+    let modulo = 0
+    if (re || im){
+        console.log('sqrt(('+(re || 0)+')^2 + ('+(im || 0)+')^2)')
+        modulo = math.evaluate('sqrt(('+(re || 0)+')^2 + ('+(im || 0)+')^2)')
+    } else {
+        modulo = math.evaluate('abs('+formattedResult+')');
+    }
+
+    //formatting for right calculation
+    modulo = math.format(modulo, {notation: 'fixed', precision: 400});
+
+    //argument of complex number when it is presented in trigonometry form in math
+    let arg = '0';
+    if (re || im){
+        arg = math.format(math.evaluate('atan2('+(im || 0)+', '+(re || 0)+')'), {notation: 'fixed', precision: 400})
+    } else {
+        arg = expressionValue < 0 ? 'pi' : '0';
+    }
+
+    //array to store results.
+    //result struct format: {string value, string error}
+    let sqVal = [];
 
     //some browsers do not support WebWorkers, we must count this case too
     if (allowWebWorkers && typeof(Worker) !== "undefined"){
 
         // functions that distributes work between webWorkers
-        MultiThreadCalculation(formattedResult, rootExponent, precisionVal, arg, allDoneCallback);
+        MultiThreadCalculation(modulo, rootExponent, precisionVal, arg, allDoneCallback);
         return;
     }
+
+    console.log(modulo.toString(), arg.toString());
 
 
     //main thread Muavr function realization, k : int
     let muavr = (k) => {
 
         //for more information https://resh.edu.ru/subject/lesson/4930/conspect/79038/
-        let imagine = math.evaluate('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
-        let re = math.evaluate('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        let n1 = math.evaluate('pow('+modulo+', 1 / '+rootExponent+') * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        let n2 = math.evaluate('pow('+modulo+', 1 / '+rootExponent+') * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
 
         //when root exponent is too close to zero
-        if (re === Number.NEGATIVE_INFINITY){
+        if (n2 === Number.NEGATIVE_INFINITY){
             return {
                 error: 'text_too_small_res_or_zero'
             };
-        } else if (re === Number.POSITIVE_INFINITY){
+        } else if (n2 === Number.POSITIVE_INFINITY){
             return {
                 error: 'text_too_large_res_or_zero'
             };
-        } else if (imagine === Number.NEGATIVE_INFINITY){
+        } else if (n1 === Number.NEGATIVE_INFINITY){
             return {
                 error: 'text_too_small_res_or_zero'
             };
-        } else if (imagine === Number.POSITIVE_INFINITY){
+        } else if (n1 === Number.POSITIVE_INFINITY){
             return {
                 error: 'text_too_large_res_or_zero'
             };
-        } else if (Number.isNaN(imagine)){ //in case of unpredicted error
+        } else if (Number.isNaN(n1)){ //in case of unpredicted error
             return {
                 error: 'err_nan'
             };
@@ -299,7 +367,9 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         //1 + 1i -> 1 + i
         //1 - 1i -> 1 -i
         //etc.
-        let realFormatted = math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+
+        console.log(n1, n2)
+        let realFormatted = math.format(n2,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
         realFormatted = realFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
         let hasRealPart = ! math.equal(realFormatted, "0")
@@ -308,7 +378,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
             res += realFormatted;
         }
 
-        let imagineFormatted =   math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+        let imagineFormatted =   math.format(n1,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
         imagineFormatted = imagineFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
         if (! math.equal(imagineFormatted, "0")){
@@ -319,13 +389,13 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
                 imagineFormatted = '';
             }
 
-            res += " " + ( math.larger(imagine, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i"
+            res += " " + ( math.larger(n1, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i"
         }
 
         return {
             value: res,
-            real: re.toString(),
-            imagine: imagine.toString()
+            real: n2.toString(),
+            imagine: n1.toString()
         }
     };
 
@@ -341,6 +411,11 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         values: sqVal
     });
 }
+
+function cot(value){
+    return Math.pow(Math.tan(value), - 1);
+}
+
 /**
  * Function wrapper for Calculate. Which modifies UI.
  */

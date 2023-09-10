@@ -17,34 +17,45 @@ function worker_function() {
         let rootExponent = request.rootExponent;
         let precisionVal = request.precision;
         let k = request.k;
-        let formattedResult = request.formattedValue;
+        let modulo = request.modulo;
         let arg = request.arg;
 
-        let imagine = parser.evaluate('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
-        let re = parser.evaluate('pow(abs('+formattedResult+'), 1 / '+rootExponent+') * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        //for more information https://resh.edu.ru/subject/lesson/4930/conspect/79038/
+        let n1 = math.evaluate('pow('+modulo+', 1 / '+rootExponent+') * (sin(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
+        let n2 = math.evaluate('pow('+modulo+', 1 / '+rootExponent+') * (cos(('+arg+' + 2 * pi * '+k+') / '+rootExponent+'))');
 
         let res = '';
-        let realFormatted = self.math.format(re,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+
+        //this big part of code is formatting result properly.
+        //cases that are predicted:
+        //0 + 1231i -> 1231i
+        //1 + 0i -> 1
+        //1 + 1i -> 1 + i
+        //1 - 1i -> 1 -i
+        //etc.
+
+        console.log(n1, n2)
+        let realFormatted = math.format(n2,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
         realFormatted = realFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
-        let hasRealPart = ! self.math.equal(realFormatted, "0")
+        let hasRealPart = ! math.equal(realFormatted, "0")
 
         if (hasRealPart){
             res += realFormatted;
         }
 
-        let imagineFormatted =   self.math.format(imagine,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
+        let imagineFormatted =   math.format(n1,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
         imagineFormatted = imagineFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
-        if (! self.math.equal(imagineFormatted, "0")){
+        if (! math.equal(imagineFormatted, "0")){
 
-            if (self.math.equal(imagineFormatted, '-1')){
+            if (math.equal(imagineFormatted, '-1')){
                 imagineFormatted = '-'
-            } else if (self.math.equal(imagineFormatted, '1')){
+            } else if (math.equal(imagineFormatted, '1')){
                 imagineFormatted = '';
             }
 
-            res += " " + ( self.math.larger(imagine, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i"
+            res += " " + ( math.larger(n1, 0) && hasRealPart ? "+ " : '') + imagineFormatted + "i"
         }
         // build a response
         const response = {

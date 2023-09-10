@@ -1,3 +1,7 @@
+.d-none {
+    display: none;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif !important;
@@ -5,7 +9,7 @@ body {
 
 }
 
-li {
+li, a {
     line-break: anywhere
 }
 
