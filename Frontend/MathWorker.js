@@ -26,14 +26,14 @@ function MathWorker () {
 
 /**
  * Evaluate an expression
- * @param formattedValue
+ * @param modulo
  * @param arg
  * @param rootExponent
  * @param k
  * @param precision
  * @param {Function} callback   Called as callback(err, result)
  */
-MathWorker.prototype.RootEvaluationMessage = function evaluate (formattedValue, arg, rootExponent, k, precision, callback) {
+MathWorker.prototype.RootEvaluationMessage = function evaluate (modulo, arg, rootExponent, k, precision, callback) {
     // build a request,
     // add an id so we can link returned responses to the right callback
     const id = this.seq++
@@ -42,7 +42,7 @@ MathWorker.prototype.RootEvaluationMessage = function evaluate (formattedValue, 
         rootExponent: rootExponent,
         k: k,
         precision: precision,
-        formattedValue: formattedValue,
+        modulo: modulo,
         arg: arg
     }
 
@@ -55,13 +55,13 @@ MathWorker.prototype.RootEvaluationMessage = function evaluate (formattedValue, 
 
 /**
  * Distribute math root evaluation process between threads function
- * @param formattedValue
+ * @param modulo
  * @param arg
  * @param rootExponent
  * @param precision
  * @param allDoneCallback
  */
-function MultiThreadCalculation(formattedValue, rootExponent, precision, arg, allDoneCallback){
+function MultiThreadCalculation(modulo, rootExponent, precision, arg, allDoneCallback){
     const totalK = rootExponent;
     let doneParallelK = 0;
     let doneK = 0;
@@ -78,7 +78,7 @@ function MultiThreadCalculation(formattedValue, rootExponent, precision, arg, al
 
         let k = doneParallelK;
 
-        thread.RootEvaluationMessage(formattedValue, arg, rootExponent, k, precision, function (err, res) {
+        thread.RootEvaluationMessage(modulo, arg, rootExponent, k, precision, function (err, res) {
             doneK++;
 
             results.values.push(res);

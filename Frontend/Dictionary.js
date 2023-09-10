@@ -20,7 +20,8 @@ const dictionary = {
         'text_developed': 'Разработано',
         'text_loading': 'Производится вычисление...',
         'err_variable': 'Ошибка: неизвестная переменная',
-        'err_unknown_character': 'Ошибка, Неизвестный специальный символ: '
+        'err_unknown_character': 'Ошибка, Неизвестный специальный символ: ',
+        'err_floating_exponent_value': 'Ошибка: программа не поддерживает дробный показатель корня'
     },
     'en': {
         'err_negative_value': 'Error: wrong sqrt argument (must be non-negative)',
