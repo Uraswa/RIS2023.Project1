@@ -158,7 +158,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
         //when user tries to use js constructs in evaluation not properly
         if (e instanceof SyntaxError) {
-            console.log(e.message);
+            //console.log(e.message);
             allDoneCallback({
                 success: false,
                 error: 'err_unknown_symbol'
@@ -185,7 +185,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
     }
 
-    console.log(expressionValue);
+    //console.log(expressionValue);
 
     // in case of unpredicted error.
     if (!expressionValue || math.format(expressionValue) == 'NaN'){
@@ -339,7 +339,6 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
     }
 
-    console.log(modulo.toString(), arg.toString());
 
 
     //main thread Muavr function realization, k : int
@@ -382,7 +381,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         //1 - 1i -> 1 -i
         //etc.
 
-        console.log(n1, n2)
+        //console.log(n1, n2)
         let realFormatted = math.format(n2,{notation: 'fixed', precision: Number.parseInt(precisionVal)});
         realFormatted = realFormatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/,'$1');
 
@@ -408,8 +407,8 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
         return {
             value: res,
-            real: n2.toString(),
-            imagine: n1.toString()
+            real: realFormatted,
+            imagine: imagineFormatted
         }
     };
 

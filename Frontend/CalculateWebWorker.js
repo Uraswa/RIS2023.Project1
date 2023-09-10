@@ -60,7 +60,9 @@ function worker_function() {
         // build a response
         const response = {
             id: request.id,
-            value: res
+            value: res,
+            real: realFormatted,
+            imagine: imagineFormatted
         }
 
         // send the response back
