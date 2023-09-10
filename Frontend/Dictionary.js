@@ -39,7 +39,11 @@ const dictionary = {
         'err_negative_precision': 'Error: Number of decimal places is a non-negative integer',
         'text_too_large_res_or_zero': 'Error: The calculation result is too large or division by zero has occurred',
         'text_too_small_res_or_zero': 'Error: The calculation result is too small or division by zero has occurred',
-        'text_developed': 'Developed'
+        'text_developed': 'Developed',
+        'text_loading': 'A calculation is performed...',
+        'err_variable': 'Error: unknown variable',
+        'err_unknown_character': 'Error, Unknown special character:',
+        'err_floating_exponent_value': 'Error: program does not support fractional root exponent'
     },
     'ch': {
         'err_negative_value': '错误：偶数根下为负数!',
@@ -57,7 +61,11 @@ const dictionary = {
         'err_negative_precision': '错误：小数位数 - 非负整数',
         'text_too_large_res_or_zero': '错误： 计算结果过大或出现除以零的情况',
         'text_too_small_res_or_zero': '错误： 计算结果太小或出现除以零的情况',
-        'text_developed': '开发者'
+        'text_developed': '开发者',
+        'text_loading': '计算中...',
+        'err_variable': '错误：未知变量',
+        'err_unknown_character': '错误，未知特殊字符：',
+        'err_floating_exponent_value': '错误：程序不支持分数根指数'
     },
     'sp': {
         'err_negative_value': 'Error: ¡número negativo bajo la raíz de grado par!',
@@ -75,6 +83,10 @@ const dictionary = {
         'err_negative_precision': 'Error: el número de decimales es un número entero no negativo',
         'text_too_large_res_or_zero': 'Error: El resultado del cálculo es demasiado grande o se ha producido una división por cero',
         'text_too_small_res_or_zero': 'Error: El resultado del cálculo es demasiado pequeño o se ha producido una división por cero',
-        'text_developed': 'Desarrollado por'
+        'text_developed': 'Desarrollado por',
+        'text_loading': 'Se realiza un cálculo...',
+        'err_variable': 'Error: variable desconocida',
+        'err_unknown_character': 'Error, carácter especial desconocido:',
+        'err_floating_exponent_value': 'Error: el programa no admite exponente de raíz fraccionaria'
     }
 };
