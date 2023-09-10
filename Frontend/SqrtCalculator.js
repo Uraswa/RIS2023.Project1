@@ -222,7 +222,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
             allDoneCallback({
                 success: true,
                 values: [{
-                    value: "0"
+                    value: "0",
                 }]
             });
             return;
@@ -310,7 +310,6 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     //modulo of complex number
     let modulo = 0
     if (re || im){
-        console.log('sqrt(('+(re || 0)+')^2 + ('+(im || 0)+')^2)')
         modulo = math.evaluate('sqrt(('+(re || 0)+')^2 + ('+(im || 0)+')^2)')
     } else {
         modulo = math.evaluate('abs('+formattedResult+')');
@@ -417,7 +416,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         let val = muavr(k);
         sqVal.push(val);
     }
-
+    
     //function successfully executed in main thread and returns array of values, but in values there may be errors
     allDoneCallback({
         success: true,

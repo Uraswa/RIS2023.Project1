@@ -1,5 +1,6 @@
 // BASE UNIT TEST FUNCTIONS
 
+// Function that concludes if the test was successful or not
 function it(desc, func) {
     try {
         func();
@@ -10,27 +11,39 @@ function it(desc, func) {
       }
 }
 
-
-function calcAssertEqual(res, expRes) {
-    var num = parseFloat(Math.pow(res.value, 2));
-    expRes = parseFloat(expRes);
-    console.log(res, num, expRes);
+// Function that checks if all the answers are correct by raising them to the corresponding power
+function calcAssertEqual(res, expRes, presVal, rootExp) {
     if (res.success === true){
-        if (num !== expRes) {
-            throw new Error(`expected output: ${expRes}; current output: ${num}`);
+        // Checking for "0" is done separately
+        if(res.values.length == 1 && res.values[0].value == '0'){
+            if(presVal.real == '0' && presVal.imaginary == '0')throw new Error(`expected '0', got ${res.values[i].value}`);
         }
-        
+        else{
+            for (let i = 0; i < rootExp; i++){
+                let a = parseFloat(res.values[i].real);
+                let b = parseFloat(res.values[i].imagine);
+                let r = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+                let angle = Math.acos(a / r);
+                let realNum = Math.pow(r, rootExp) * Math.cos(rootExp * angle);
+                let imagNum = Math.pow(r, rootExp) * Math.sin(rootExp * angle);
+                if (!(Math.abs(expRes.real - realNum) < 0.1) || !(Math.abs(expRes.imaginary - imagNum) < 0.1)){
+                    throw new Error(`expected real: ${expRes.real}, imaginary: ${expRes.imaginary}; got real: ${realNum}, imaginary: ${imagNum}`);
+                }
+            }
+        }
     }
     else{
         throw new Error(`expected output: ${expRes}; instead error raised: ${res.error}`);
     }
-
 }
 
+// Function that checks if the correct type of error is raised
 function calcAssertError(res, expRes) {
-    console.log(res, expRes);
     if (res.success === false){
-        if (res.error.trim() != expRes.trim()){
+        if (res.error.error_key && res.error.error_key.trim() != expRes.trim()) {
+            throw new Error(`expected error: ${expRes}; instead error raised: ${res.error.error_key}`);
+        }
+        if (typeof res.error == 'string' && res.error.trim() != expRes.trim()){
             throw new Error(`expected error: ${expRes}; instead error raised: ${res.error}`);
         }
     }
@@ -39,104 +52,314 @@ function calcAssertError(res, expRes) {
     }
 }
 
+// Function that runs all tests in an array
 function runTests(tests) {
-    for (var i = 0; i < tests.length; i++) {
+    for (let i = 0; i < tests.length; i++) {
         tests[i]();
     }
 }
 
 // TESTS
-var Tests = [
+let Tests = [
     // "Calculate" function tests
+    // Calculation tests
+    // Basic tests
     function test1() {
-        it('Base Test 1', function() {
-            var input = '4';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+
+        let real = '4';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Base Test 1', function() {
+                console.log(result)
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
+
     },
     function test2() {
-        it('Base Test 2', function() {
-            var input = '9';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = '9';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Base Test 2', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
+    // Tests for irrational results
     function test3() {
-        it('Irrational Test 1', function() {
-            var input = '2';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = '2';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Irrational Test 1', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
     function test4() {
-        it('Irrational Test 2', function() {
-            var input = '5';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = '5';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Irrational Test 2', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
+    // Tests for random numbers
     function test5() {
-        it('Random Number Test 1', function() {
-            var input = Math.floor((Math.random() + 1)).toString();
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = Math.floor((Math.random() + 1) * 10).toString();;
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Random Number Test 1', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
     function test6() {
-        it('Random Number Test 2', function() {
-            var input =  (Math.floor(((Math.random() + 1))) * 1000).toString();
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = (Math.floor(((Math.random() + 1))) * 1000).toString();
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Random Number Test 2', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
     function test7() {
-        it('Random Number Test 3', function() {
-            var input = (Math.floor((Math.random() + 1)) * 100000000).toString();
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = (Math.floor((Math.random() + 1)) * 100000000).toString();
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Random Number Test 3', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
+    // Test for zero
     function test8() {
-        it('Test Zero', function() {
-            var input = '0';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = '0';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Zero', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
+    // Tests for different root exponents
     function test9() {
-        it('Test Unknown Symbol Error 1', function() {
-            var input = '2 + a';
-            var res = Calculate(input);
-            calcAssertError(res, 'err_unknown_symbol');
-          });
+        let real = '9';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 3;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Odd RootExp 1', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
     function test10() {
-        it('Test Unknown Symbol Error 2', function() {
-            var input = '2 +';
-            var res = Calculate(input);
-            calcAssertError(res, 'err_unknown_symbol');
-          });
+        let real = '6';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 7;
+        let expRes = {
+            real: real,
+            imaginary: imaginary
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Odd RootExp 2', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
+    // tests for imaginary numbers
     function test11() {
-        it('Test Unknown Symbol Error 3', function() {
-            var input = 'abcde';
-            var res = Calculate(input);
-            calcAssertError(res, 'err_unknown_symbol');
-          });
+        let real = '0';
+        let imaginary = '4';
+        let presVal = 4;
+        let rootExp = 2;
+        let expRes = {
+            real: '4',
+            imaginary: '0'
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Imaginary 1', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
     function test12() {
-        it('Test Float Input', function() {
-            var input = '2.4';
-            var res = Calculate(input);
-            calcAssertEqual(res, input);
-          });
+        let real = '0';
+        let imaginary = '2.54';
+        let presVal = 4;
+        let rootExp = 7;
+        let expRes = {
+            real: '2.54',
+            imaginary: '0'
+        }    
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Imaginary 2', function() {
+                calcAssertEqual(result, expRes, presVal, rootExp);
+            });
+        });
     },
-    
-    
-    
+    // Error Tests
+    // Tests for algebra symbols error
+    function test13() {
+        let real = '2 + a';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2; 
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Algebra Symbol Error 1', function() {
+                calcAssertError(result, 'err_variable');
+            });
+        });
+    },
+    function test13() {
+        let real = '0';
+        let imaginary = 'x';
+        let presVal = 4;
+        let rootExp = 2; 
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Algebra Symbol Error 2', function() {
+                calcAssertError(result, 'err_variable');
+            });
+        });
+    },
+    // Tests for special symbols error
+    function test14() {
+        let real = '2 + 5_';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Special Symbol Error 1', function() {
+                calcAssertError(result, 'err_unknown_character');
+            });
+        });
+    },
+    function test15() {
+        let real = '\\n2 + 5';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Special Symbol Error 2', function() {
+                calcAssertError(result, 'err_unknown_character');
+            });
+        });
+    },
+    // Tests for incorrect root exponent error
+    function test16() {
+        let real = '2';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = -2;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Negative RootExp Error', function() {
+                calcAssertError(result, 'err_wrong_root_exponent_value');
+            });
+        });
+    },
+    function test17() {
+        let real = '2';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 2.5;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Incorrect RootExp Error', function() {
+                calcAssertError(result, 'err_floating_exponent_value');
+            });
+        });
+    },
+    function test18() {
+        let real = '2';
+        let imaginary = '0';
+        let presVal = 4;
+        let rootExp = 0;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Zero RootExp Error', function() {
+                calcAssertError(result, 'err_wrong_root_exponent_value');
+            });
+        });
+    },
+    // Tests for incorrect precision value error
+    function test19() {
+        let real = '2';
+        let imaginary = '0';
+        let presVal = -2;
+        let rootExp = 2;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Negative presVal Error', function() {
+                calcAssertError(result, 'err_negative_precision');
+            });
+        });
+    },
+    function test20() {
+        let real = '2';
+        let imaginary = '0';
+        let presVal = 4.5;
+        let rootExp = 2;  
+        Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, function(result){
+            it('Test Incorrect presVal Error', function() {
+                calcAssertError(result, 'err_floating_precision');
+            });
+        });
+    },
+
 ]
 
+// RUNNING TESTS
 if (debugVersion){
     runTests(Tests);
 }
