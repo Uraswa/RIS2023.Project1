@@ -1,2 +1,7 @@
 .idea
 Frontend/node_modules
+Frontend/dist/*
+Frontend/dist/Tests.js
+Frontend/dist/style.css
+Frontend/dist/index.html
+Frontend/dist/CalculateWebWorker.js

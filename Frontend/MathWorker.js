@@ -101,11 +101,16 @@ function MultiThreadCalculation(modulo, rootExponent, precision, arg, allDoneCal
 
 
 }
-
-//web workers initialization
 const _MathWorkers = [];
 
-for (let i = 0; i < threads; i++){
-    _MathWorkers.push(new MathWorker())
+if (typeof(Worker) !== "undefined"){
+    //web workers initialization
+
+
+    for (let i = 0; i < threads; i++){
+        _MathWorkers.push(new MathWorker())
+    }
 }
+
+
 
