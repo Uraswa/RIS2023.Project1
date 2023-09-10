@@ -222,7 +222,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
             allDoneCallback({
                 success: true,
                 values: [{
-                    value: "0"
+                    value: "0",
                 }]
             });
             return;
@@ -310,7 +310,6 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     //modulo of complex number
     let modulo = 0
     if (re || im){
-        console.log('sqrt(('+(re || 0)+')^2 + ('+(im || 0)+')^2)')
         modulo = math.evaluate('sqrt(('+(re || 0)+')^2 + ('+(im || 0)+')^2)')
     } else {
         modulo = math.evaluate('abs('+formattedResult+')');
