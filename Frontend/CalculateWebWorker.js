@@ -60,7 +60,8 @@ function worker_function() {
             id: request.id,
             value: res,
             real: realFormatted,
-            imagine: imagineFormatted
+            imagine: imagineFormatted,
+            k: k
         }
 
         // send the response back

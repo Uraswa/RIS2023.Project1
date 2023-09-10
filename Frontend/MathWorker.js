@@ -84,6 +84,10 @@ function MultiThreadCalculation(modulo, rootExponent, precision, arg, allDoneCal
             results.values.push(res);
 
             if (doneK == totalK){
+
+                console.log(results.values);
+                results.values.sort((a,b) => a.k - b.k)
+
                 allDoneCallback(results)
             }
         })
