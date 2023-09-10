@@ -241,6 +241,14 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         return;
     }
 
+    if (rootExponent <= 0){
+        allDoneCallback({
+            success: false,
+            error: "err_wrong_root_exponent_value"
+        })
+        return;
+    }
+
 
 
     if (rootExponent == "" || rootExponent == "0" || rootExponent === 0) {
