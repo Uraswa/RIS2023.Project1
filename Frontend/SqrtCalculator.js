@@ -169,6 +169,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         //when user tries to use algebra letters in expression
         if (e.message.includes("Undefined symbol")){
             allDoneCallback({
+                success: false,
                 error: 'err_variable'
             });
             return;
@@ -176,6 +177,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
         // all other uncaught exceptions
         allDoneCallback({
+            success: false,
             error: 'err_nan'
         });
 
@@ -188,6 +190,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     // in case of unpredicted error.
     if (!expressionValue || math.format(expressionValue) == 'NaN'){
         allDoneCallback({
+            success: false,
             error: 'err_nan'
         });
         return;
@@ -196,6 +199,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     //when some positive number was divided by 0, or the value is too big (When 1 / 0, js returns infinity)
     if (math.format(expressionValue) == "Infinity"){
         allDoneCallback({
+            success: false,
             error: 'text_too_large_res_or_zero'
         });
         return;
@@ -204,6 +208,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     //when some negative number was divided by 0, or the value is too small (When -1 / 0, js returns -infinity)
     if (math.format(expressionValue) == "-Infinity"){
         allDoneCallback({
+            success: false,
             error: 'text_too_small_res_or_zero'
         });
         return;
@@ -226,6 +231,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
 
         if (e instanceof TypeError){
             allDoneCallback({
+                success: false,
                 error: 'err_nan'
             });
             return;
