@@ -57,11 +57,8 @@ var Tests = [
             let imaginary = '0';
             let presVal = 2;
             let rootExp = 2;
-            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp);
+            let res = Calculate(`${real} + (${imaginary}i)`, presVal, rootExp, 1);
             console.log(res)
-            res.forEach((element) => {
-                console.log(element);
-            });
             let expRes = {
                 real: real,
                 imaginary: imaginary

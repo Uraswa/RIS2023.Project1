@@ -320,7 +320,7 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
         let val = muavr(k);
         sqVal.push(val);
     }
-
+    
     //function successfully executed in main thread and returns array of values, but in values there may be errors
     allDoneCallback({
         success: true,
