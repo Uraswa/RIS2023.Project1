@@ -96,10 +96,18 @@
                 <p>Данный программный продукт был создан командой разработчиков «Russian Program Dealer»</p>
                 <h4 >FAQ</h4>
                 <ul>
-                    <li>Что делать если в поле ввода появилась ошибка?</li>
+                    <li>Что делать, если в поле ввода появилась ошибка?</li>
                     <p>– Вам необходимо исправить некорректное действие в выражении или же очистить окна ввода и вывода при помощи кнопки С</p>
-                    <li>Что делать если здесь нет нужной мне информации?</li>
-                    <p>– Вы всегда можете обратиться в техподдержку при помощи нашего Telegram бота.</p>
+                    <li>Поддерживает ли эта программа вычисление корней из выражений, содержащих переменные?</li>
+                    <p>– К сожалению, нет.</p>
+                    <li>Нужно ли мне подключение к интернету для работы с программой?</li>
+                    <p>– Нет, программа работает в офлайн режиме.</p>
+                    <li>Что делать, если здесь нет нужной мне информации?</li>
+                    <p>– Вы всегда можете обратиться в техподдержку при помощи нашего <a target="_blank" href="">Telegram бота</a> или
+                        <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScaclArTOfGkDEfLehT6o3wvvI2kgPE5wAdCbFMiJIAnubk8g/viewform?usp=sf_link">
+                            оставить заявку в google форме
+                        </a>
+                    </p>
                 </ul>
 
                 <h4 >ОПИСАНИЕ ПРОГРАММЫ</h4>
@@ -115,42 +123,45 @@
                     <p>Вводить выражения можно не только с помощью графического интерфейса, но и с помощью клавиатуры</p>
                 </ul>
 
-                <p>Программа разработана при помощи языка программирования javascript и языка разметки html</p>
+                <p>Программа разработана при помощи средств веб-разработки: языка программирования javascript, языка таблицы стилей css и языка разметки html</p>
 
                 <h4 >РУКОВОДСТВО ДЛЯ ПОЛЬЗОВАТЕЛЯ</h4>
                 <h5>НАЧАЛО РАБОТЫ</h5>
                 <ol>
-                    <li>Скачать архив с сайта github по ссылке: </li>
-                    <a href="https://github.com/Uraswa/RIS2023.Project1"> https://github.com/Uraswa/RIS2023.Project1 </a>
+                    <li>Скачать последнюю версию программы можно <a target="_blank" href="https://github.com/Uraswa/RIS2023.Project1/releases">по ссылке</a> </li>
                     <li>Разархивировать архив в отдельную папку</li>
-                    <li>Запустить файл index.html, находящийся в папке Frontend</li>
+                    <li>Запустить файл sqrtCalculator.html</li>
                     <p>После этих действий программа готова к эксплуатации</p>
                 </ol>
                 <h4 >СПРАВКА ПРОГРАММЫ</h4>
-                <ol >
-                    <li>1.	'C' – очистка окна ввода и вывода</li>
-                    <li>2.	'<-' – удалить последний символ в выражении</li>
-                    <li>3.	'sqrt' – извлечение квадратного корня</li>
-                    <li>4.	'pi' – число пи </li>
-                    <li>5.	'%' – остаток от деления числа</li>
-                    <li>6.	'+' – математическое сложение</li>
-                    <li>7.	'sin' – вычисление синуса числа</li>
-                    <li>8.	'cos' – вычисление косинуса числа</li>
-                    <li>9.	'tg' – вычисление тангенса числа</li>
-                    <li>10.	'ctg' – вычисление котангенса числа</li>
-                    <li>11.	'-' – математическое вычитание</li>
-                    <li>12.	'*' – математическое умножение</li>
-                    <li>13.	'/' – математическое деление (при делении числа на ноль программа уведомляет о некорректности операции сообщением-ошибкой «ERROR»)</li>
-                    <li>14.	'^' – возведение в степень</li>
-                    <li>15.	'.' – разделитель целой и дробной части числа</li>
-                    <li>16.	'(' и ')' – скобки(используются для задания приоритета операций)</li>
-                    <li>17.	'=' – вывод результата</li>
-                    <li>18.	Кнопки '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' используются для введения чисел</li>
+                <ol>
+                    <li>'C' – очистка окна ввода и вывода</li>
+                    <li>'<-' – удалить последний символ в выражении</li>
+                    <li>'sqrt' – извлечение квадратного корня. Корень может вести себя по разному: если передать в качестве аргумента неотрицательное число,
+                    то корень будет вести себя, как арифметический; если в качестве аргумента передать отрицательное число, то корень вернет положительное число * i.
+                    </li>
+                    <li>'pi' – число пи </li>
+                    <li>'%' – остаток от деления числа</li>
+                    <li>'+' – математическое сложение</li>
+                    <li>'sin' – вычисление синуса числа</li>
+                    <li>'cos' – вычисление косинуса числа</li>
+                    <li>'tg' – вычисление тангенса числа</li>
+                    <li>'-' – математическое вычитание</li>
+                    <li>'*' – математическое умножение</li>
+                    <li>'/' – математическое деление </li>
+                    <li>'^' – возведение в степень</li>
+                    <li>'.' – разделитель целой и дробной части числа</li>
+                    <li>'(' и ')' – скобки(используются для задания приоритета операций)</li>
+                    <li>'=' – вывод результата</li>
+                    <li>'e' – Экспонента</li>
+                    <li>'i' – Мнимая единица</li>
+                    <li>Кнопки '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' используются для введения чисел</li>
                 </ol>
                 <h4 >ПРОГРАММНЫЕ УВЕДОМЛЕНИЯ:</h4>
                 <ol>
                     <li>«Производится вычисление...» - программа вычисляет корень из введеного выражения</li>
                     <li>«Ошибка: Результат вычисления слишком мал, либо произошло деление на ноль» - указано некорректное действие(деление числа на 0) или же в результате вычислений получено слишком маленькое число</li>
+                    <li>«Ошибка: отрицательное число под корнем четной степени!» - попытка извлечь корень четной степени из отрицательного числа</li>
                     <li>«Ошибка: Неизвестный символ» - в поле ввода выражения введен символ, неподдерживаемый программой</li>
                     <li>«Неправильный показатель корня» - в поле ввода показателя корня введено некоректное выражение</li>
                     <li>«Отрицательное число под корнем дробной степени» - в выражении присутствует некорректное действие: извлечение корня с дробной степенью из отрицательного числа</li>
@@ -164,241 +175,253 @@
                 </ol>
             </div>
             <div class="docs_lng" key="ch">
-                <h1>Sqrt calculator 程序文档</h1>
+                <h1>SQRT计算器程序文档</h1>
                 <p>您可以在此页面找到用户手册和程序描述。</p>
-                <p>这个软件产品是由一个开发团队创建的«Russian Program Dealer»。</p>
-                <h4 >开开开</h4>
+                <p>该软件产品由“Russian Program Dealer”开发团队创建。</p>
+                <h4>常见问题</h4>
                 <ul>
-                    <li>如果输入字段发生错误呢?</li>
-                    <p>-您需要纠正错误行为、或者您需要使用C按钮清除条目和输出窗口。</p>
-                    <li>此程序是否支持计算含有变量的表达式的根值?</li>
-                    <p>-不幸的是、没有。</p>
-                    <li>我需要互联网连接来配合这个程序吗?</li>
-                    <p>-不、这个程序在离线工作</p>
-                    <li>如果我没有我需要的信息呢?</li>
-                    <p>-你可以在我们的电报电脑的帮助下申请技术支持</p>
+                    <li>如果输入字段出现错误，应该怎么办？</li>
+                    <p> - 您需要更正表达式中的不正确操作或使用“C”按钮清除输入和输出窗口。</p>
+                    <li>该程序是否支持计算带有变量的表达式的根？</li>
+                    <p> - 很抱歉，不支持。</p>
+                    <li>我需要在使用程序时连接到互联网吗？</li>
+                    <p> - 不需要，该程序在离线模式下运行。</p>
+                    <li>如果没有我需要的信息怎么办？</li>
+                    <p> - 您随时可以使用我们的<a target="_blank" href="">Telegram 机器人</a>或<a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScaclArTOfGkDEfLehT6o3wvvI2kgPE5wAdCbFMiJIAnubk8g/viewform?usp=sf_link">在Google表单中提出申请</a>联系技术支持。</p>
                 </ul>
 
-                <h4 >方案说明</h4>
-                <p>软件产品RT计算器的设计是为了从数字中提取一个平方根。</p>
-                <p>其界面界面包括:</p>
+                <h4>程序描述</h4>
+                <p>“SQRT计算器”软件产品用于提取数字的平方根。</p>
+                <p>其GUI界面包括：</p>
                 <ul>
-                    <li>窗口输入根指示器</li>
-                    <li>小数位后输入字符数的窗口</li>
-                    <li>输入计算表达式的窗口</li>
-                    <li>输出窗口</li>
-                    <li>29个按钮以输入表达式</li>
+                    <li>输入根数的窗口</li>
+                    <li>输入小数点后位数的窗口</li>
+                    <li>输入要计算的表达式的窗口</li>
+                    <li>结果输出窗口</li>
+                    <li>29个用于输入表达式的按钮</li>
                     <li>语言切换菜单</li>
-                    <p>您不仅可以通过图形界面、还可以通过键盘输入表达式。</p>
+                    <p>您可以使用键盘输入表达式，而不仅限于图形界面。</p>
                 </ul>
 
-                <p>该方案是通过网络发展工具开发的:编程语言javascript、风格css和标识语言html</p>
+                <p>该程序使用Web开发工具开发：JavaScript编程语言、CSS样式表语言和HTML标记语言。</p>
 
-                <h4 >用户手动用户手册</h4>
-                <h5>开始</h5>
+                <h4>用户手册</h4>
+                <h5>开始工作</h5>
                 <ol>
-
-
-                    <li>从Github网站通过链接下载归档:</li>
-                    <a href="https://github.com/Uraswa/RIS2023.Project1"> https://github.com/Uraswa/RIS2023.Project1 </a>
-                    <li>将归档整理为单独的文件夹</li>
-                    <li>在前端文件夹中启动索引。html文件</li>
-                    <p>在采取这些行动之后、该方案已经准备就绪、可以运作。</p>
+                    <li>您可以通过<a target="_blank" href="https://github.com/Uraswa/RIS2023.Project1/releases">此链接</a>下载最新版本的程序。</li>
+                    <li>解压缩存档到单独的文件夹中</li>
+                    <li>运行sqrtCalculator.html文件</li>
+                    <p>完成这些步骤后，程序已准备好使用。</p>
                 </ol>
-                <h4 >方案概况</h4>
-                <ol >
-                    <li>'C'-清理入口和输出窗口</li>
-                    <li>'<-'-删除表达式中的最后符号</li>
-                    <li>“sqrt”-提取平方根</li>
-                    <li>“pi”是数字pi</li>
-                    <li>'%'是数字分区的平衡</li>
-                    <li>'+'数学添加</li>
-                    <li>'sin'是数字的正弦值的计算</li>
-                    <li>'cos'-计算数字余弦</li>
-                    <li>'tg'-计算数字的正切</li>
-                    <li>'ctg'是计算Cotangen数的计算</li>
-                    <li>'-'-数学减法</li>
-                    <li>'*'数学乘数</li>
-                    <li>'/'是一个数学分区</li>
-                    <li>'^'-引言</li>
-                    <li>'.' 是数字的整部分和分部分的切割器。</li>
-                    <li>“('和“)”-括号(用于确定业务的优先次序)</li>
-                    <li>'='-输出</li>
-                    <li>输入数字时使用按钮'0'、'1'、'2'、'3'、'4'、'5'、'6'、'7'、'8'、'9'</li>
-                </ol>
-                <h4 >政策通知:</h4>
+
+                <h4>程序帮助</h4>
                 <ol>
-                    <li>“必须进行计算。。。。。。”-该方案计算所采用术语的根。</li>
-                    <li>“错误:计算结果太小、或零分除。”-表示不正确的行动(数字为0)、或计算结果太小。</li>
-                    <li>“错误:错误的sqrt参数(必须是非负性的)”-试图从负数中提取平均程度根部</li>
-                    <li>“错误:未知符号”--在条目字段中引入了一个不受程序支持的符号</li>
-                    <li>“Wrong root根指数值”--在根条目字段中插入一个非核心表达式</li>
-                    <li>“根底下带有浮动引号的无效值”-效果不正确:以负数的分度去除根根</li>
-                    <li>“错误:检查输入表达式的正确性”-未知错误</li>
-                    <li>“错误:小数位数的最大数=400”-在小数位数之后的条目字段中输入400多个</li>
-                    <li>“错误:小数位数是一个整数”-在小数点之后的符号数条目字段中、插入一个非整数</li>
-                    <li>“错误:小数位数是非负整数=-在小数位数后输入的负数</li>
-                    <li>“错误:计算结果太大或出现零除法”--表示不正确的行动(数字为0)或计算结果太大</li>
-                    <li>“错误:未知变量”-在条目字段中引入了一个变量</li>
-                    <li>“错误:未知的特殊符号”-在条目字段中引入了不受程序支持的特殊符号</li>
+                    <li>'C' - 清除输入和输出窗口</li>
+                    <li>'<' - 删除表达式中的最后一个字符</li>
+                    <li>'sqrt' - 提取平方根。根的行为因参数而异：如果参数为非负数，则根会像算术根一样运行；如果参数为负数，则根会返回正数*i。</li>
+                    <li>'pi' - 圆周率</li>
+                    <li>'%' - 数字的余数</li>
+                    <li>'+' - 数学加法</li>
+                    <li>'sin' - 计算数字的正弦</li>
+                    <li>'cos' - 计算数字的余弦</li>
+                    <li>'tg' - 计算数字的正切</li>
+                    <li>'-' - 数学减法</li>
+                    <li>'*' - 数学乘法</li>
+                    <li>'/' - 数学除法</li>
+                    <li>'^' - 数学乘方</li>
+                    <li>'.' - 整数和小数部分的分隔符</li>
+                    <li>'(' 和 ')' - 括号（用于指定操作的优先级）</li>
+                    <li>'=' - 显示结果</li>
+                    <li>'e' - 自然常数e</li>
+                    <li>'i' - 虚数单位i</li>
+                    <li>'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'按钮用于输入数字</li>
+                </ol>
+
+                <h4>程序提示</h4>
+                <ol>
+                    <li>“计算中...” - 程序正在计算输入的表达式的平方根。</li>
+                    <li>“错误：计算结果太小或发生除零错误” - 指定了不正确的操作（将数字除以0）或者计算结果太小。</li>
+                    <li>“错误：负指数下的根号！” - 尝试从负数中提取偶数次方的根。</li>
+                    <li>“错误：未知字符” - 输入的表达式中包含程序不支持的字符。</li>
+                    <li>“错误：根指数不正确” - 输入的根数显示不正确。</li>
+                    <li>“根号中的负数次方” - 表达式中存在不正确的操作：从负数中提取分数次方的根。</li>
+                    <li>“错误：检查输入表达式的正确性” - 未知错误。</li>
+                    <li>“错误：最大小数点后位数为400” - 输入小数点后位数的字段中输入的数字大于400。</li>
+                    <li>“错误：小数点后位数必须为整数” - 输入小数点后位数的字段中输入了非整数。</li>
+                    <li>“错误：小数点后位数必须是非负整数” - 输入小数点后位数的字段中输入了负数。</li>
+                    <li>“错误：计算结果太大或发生除零错误” - 指定了不正确的操作（将数字除以0）或者计算结果太大。</li>
+                    <li>“错误：未知变量” - 输入的表达式中包含变量。</li>
+                    <li>“错误：未知特殊字符” - 输入的表达式中包含程序不支持的特殊字符。</li>
                 </ol>
             </div>
             <div class="docs_lng" key="en">
-                <h1>Sqrt calculator documentation</h1>
-                <p>You can find a user manual and a program description on this page.</p>
-                <p>This software product was created by a team of developers of the Russian Program Dealer</p>
-                <h4 >faq</h4>
+                <h1>SQRT Calculator Program Documentation</h1>
+                <p>On this page, you can find the user manual and program description.</p>
+                <p>This software product was created by the "Russian Program Dealer" development team.</p>
+                <h4>FAQ</h4>
                 <ul>
-                    <li>What if an error occurred in the input field?</li>
-                    <p>- You need to correct the incorrect act in terms, or you need to clear the entry and output windows using the C button.</p>
-                    <li>Does this program support the calculation of roots from expressions containing variables?</li>
+                    <li>What to do if an error appears in the input field?</li>
+                    <p>- You need to correct the incorrect action in the expression or clear the input and output windows using the 'C' button.</p>
+                    <li>Does this program support calculating roots of expressions containing variables?</li>
                     <p>- Unfortunately, no.</p>
-                    <li>Do I need an Internet connection to work with the program?</li>
-                    <p>- No, the program works offline.</p>
-                    <li>What if I don't have the information I need?</li>
-                    <p>- You can always apply for technical support with the help of our Telegram Bot.</p>
+                    <li>Do I need an internet connection to use the program?</li>
+                    <p>- No, the program operates in offline mode.</p>
+                    <li>What to do if the required information is not available here?</li>
+                    <p>- You can always contact technical support using our <a target="_blank" href="">Telegram bot</a> or
+                        <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScaclArTOfGkDEfLehT6o3wvvI2kgPE5wAdCbFMiJIAnubk8g/viewform?usp=sf_link">
+                            submit a request in the Google form
+                        </a>
+                    </p>
                 </ul>
 
-                <h4 >Programme description</h4>
-                <p>The software product SQRT Calculator is designed to extract a square root from numbers.</p>
+                <h4>Program Description</h4>
+                <p>The "SQRT Calculator" software product is designed to extract the square root of numbers.</p>
                 <p>Its GUI interface includes:</p>
                 <ul>
-                    <li>A window to enter the root indicator</li>
-                    <li>Window for entering the number of characters after decimal place</li>
-                    <li>Window for input of the computational expression</li>
-                    <li>Output Window</li>
-                    <li>29 buttons to enter the expression</li>
-                    <li>Language Switch menu</li>
-                    <p>You can enter expressions not only by graphic interface, but also by keyboard.</p>
+                    <li>Input window for the root value</li>
+                    <li>Input window for the number of decimal places</li>
+                    <li>Input window for the expression to be calculated</li>
+                    <li>Result output window</li>
+                    <li>29 buttons for inputting expressions</li>
+                    <li>Language switch menu</li>
+                    <p>You can input expressions not only through the graphical interface but also with the keyboard.</p>
                 </ul>
 
-                <p>The programme was developed through web-based development tools: programming language javascript, style css and marking language html</p>
+                <p>The program was developed using web development tools: JavaScript programming language, CSS stylesheet language, and HTML markup language.</p>
 
-                <h4 >User manual</h4>
-                <h5>Start</h5>
+                <h4>User Manual</h4>
+                <h5>Getting Started</h5>
                 <ol>
-
-                    <li>download the archive from the gythub site by link:</li>
-                    <a href="https://github.com/Uraswa/RIS2023.Project1"> https://github.com/Uraswa/RIS2023.Project1 </a>
-                    <li>Unarchivate the archive into a separate folder</li>
-                    <li>Start the index.html file in Frontend folder</li>
-                    <p>After these actions, the programme is ready for operation.</p>
+                    <li>You can download the latest version of the program from <a target="_blank" href="https://github.com/Uraswa/RIS2023.Project1/releases">this link</a></li>
+                    <li>Unzip the archive into a separate folder</li>
+                    <li>Run the sqrtCalculator.html file</li>
+                    <p>After these steps, the program is ready for use.</p>
                 </ol>
-                <h4 >Programme profile</h4>
-                <ol >
-                    <li>'C' – Cleaning the window of entry and output</li>
-                    <li>'&lt;-' – delete the last symbol in the expression</li>
-                    <li>'sqrt' – extracting the square root</li>
-                    <li>'pi' is the number pi</li>
-                    <li>'%' is the balance of the number division</li>
+
+                <h4>Program Reference</h4>
+                <ol>
+                    <li>'C' – clear input and output window</li>
+                    <li>'<-' – delete the last character in the expression</li>
+                    <li>'sqrt' – square root extraction. The behavior of the root varies: if a non-negative number is passed as an argument,
+                        the root will behave as arithmetic; if a negative number is passed as an argument, the root will return a positive number * i.</li>
+                    <li>'pi' – the number pi</li>
+                    <li>'%' – remainder of division by a number</li>
                     <li>'+' – mathematical addition</li>
-                    <li>'sin' is the calculation of the sine of the number</li>
-                    <li>'coss' – Compute number cosine</li>
-                    <li>'tg' – Compute the tangens of number</li>
-                    <li>'ctg' is the calculation of the number cotangen</li>
+                    <li>'sin' – calculation of the sine of a number</li>
+                    <li>'cos' – calculation of the cosine of a number</li>
+                    <li>'tg' – calculation of the tangent of a number</li>
                     <li>'-' – mathematical subtraction</li>
                     <li>'*' – mathematical multiplication</li>
-                    <li>'/' is a mathematical division</li>
-                    <li>'^'– exponentiation</li>
-                    <li>'.' is the cutter of the whole and fractional part of the number</li>
-                    <li>'('and ')' – brackets (used to prioritize operations)</li>
-                    <li>'=' – output</li>
-                    <li>The buttons '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' are used to inject numbers</li>
+                    <li>'/' – mathematical division</li>
+                    <li>'^' – exponentiation</li>
+                    <li>'.' – decimal point separator</li>
+                    <li>'(' and ')' – parentheses (used to specify the order of operations)</li>
+                    <li>'=' – display the result</li>
+                    <li>'e' – exponential constant (Euler's number)</li>
+                    <li>'i' – imaginary unit</li>
+                    <li>Buttons '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' are used for entering numbers</li>
                 </ol>
-                <h4 >Policy Notices:</h4>
+
+                <h4>Program Notifications</h4>
                 <ol>
-                    <li>«A calculation shall be made...» - The program calculates the root of the term introduced.</li>
-                    <li>«A error: the result of the calculation is too small, or there is a zero division.» - indicates incorrect action (number by 0) or the result of the calculation is too small.</li>
-                    <li>«Error: wrong sqrt argument (must be non-negative)» - an attempt to extract the root of an even degree from a negative number</li>
-                    <li>«Error: Unknown symbol» - a symbol not supported by the program has been introduced in the entry field</li>
-                    <li>«Wrong root exponent value» - a non-core expression is inserted in the root entry field</li>
-                    <li>«Negative value under the root with floating exponent» - there is an incorrect effect: removal of the root with a fractional degree from the negative number</li>
-                    <li>«Error: Check the correctness of the entered expression.» - unknown error</li>
-                    <li>«Error: Maximum number of decimal places = 400» - more than 400 are entered in the field of entry of the number after decimal place</li>
-                    <li>«Error: The number of decimal places is an integer» - in the field of entry of the number of signs after decimal, a non-integral number is inserted</li>
-                    <li>«Error: Number of decimal places is a non-negative integer» - negative number introduced in the field of entry of the number after decimal place</li>
-                    <li>«Error: The calculation result is too large or division by zero has occurred» - indicates incorrect action (number by 0) or the result of the calculation is too large</li>
-                    <li>«Error: unknown variable» - a variable has been introduced in the entry field</li>
-                    <li>«Error: Unknown special symbol» - a special symbol not supported by the program has been introduced in the entry field</li>
+                    <li>"Calculating..." - the program is calculating the square root of the entered expression</li>
+                    <li>"Error: Result too small or division by zero occurred" - an incorrect action is specified (dividing a number by 0) or the calculation result is too small.</li>
+                    <li>"Error: Negative number under even root!" - attempting to extract an even root from a negative number.</li>
+                    <li>"Error: Unknown character" - an unsupported character is entered in the expression input field.</li>
+                    <li>"Error: Incorrect root exponent" - the input for the root value is incorrect.</li>
+                    <li>"Negative number under fractional root" - the expression contains an incorrect operation: extracting a fractional root from a negative number.</li>
+                    <li>"Error: Check the correctness of the entered expression" - unknown error.</li>
+                    <li>"Error: Maximum number of decimal places = 400" - a number greater than 400 is entered in the decimal places input field.</li>
+                    <li>"Error: The number of decimal places must be an integer" - a non-integer number is entered in the decimal places input field.</li>
+                    <li>"Error: The number of decimal places must be a non-negative integer" - a negative number is entered in the decimal places input field.</li>
+                    <li>"Error: Result too large or division by zero occurred" - an incorrect action is specified (dividing a number by 0) or the calculation result is too large.</li>
+                    <li>"Error: Unknown variable" - a variable is entered in the expression input field.</li>
+                    <li>"Error: Unknown special character" - a special character not supported by the program is entered in the expression input field.</li>
                 </ol>
             </div>
             <div class="docs_lng" key="sp">
-                <h1>documentación Sqrt calculator</h1>
-                <p>Puede encontrar un manual de usuario y una descripción del programa en esta página.</p>
-                <p>Este producto de software fue creado por un equipo de desarrolladores del Russian Program Dealer</p>
-                <h4 >faq</h4>
+                <h1>Documentación del Programa Calculadora de Raíces Cuadradas (SQRT)</h1>
+                <p>En esta página, encontrarás el manual del usuario y la descripción del programa.</p>
+                <p>Este producto de software fue creado por el equipo de desarrollo "Russian Program Dealer".</p>
+                <h4>Preguntas Frecuentes (FAQ)</h4>
                 <ul>
-                    <li>¿Y si se produjo un error en el campo de entrada?</li>
-                    <p>- Tiene que corregir el acto incorrecto en términos, o necesita limpiar las ventanas de entrada y salida usando el botón C.</p>
-                    <li>¿Este programa apoya el cálculo de las raíces de las expresiones que contienen variables?</li>
-                    <p></p>
-                    <li>¿Necesito una conexión a Internet para trabajar con el programa?</li>
-                    <p>- No, el programa funciona fuera de línea.</p>
-                    <li>¿Y si no tengo la información que necesito?</li>
-                    <p>Siempre puedes solicitar apoyo técnico con la ayuda de nuestro Telegram Bot.</p>
+                    <li>¿Qué hacer si aparece un error en el campo de entrada?</li>
+                    <p>- Debes corregir la acción incorrecta en la expresión o borrar las ventanas de entrada y salida utilizando el botón 'C'.</p>
+                    <li>¿Esta programa admite el cálculo de raíces en expresiones que contienen variables?</li>
+                    <p>- Lamentablemente, no.</p>
+                    <li>¿Necesito una conexión a Internet para usar el programa?</li>
+                    <p>- No, el programa funciona en modo sin conexión.</p>
+                    <li>¿Qué hacer si la información que necesito no está disponible aquí?</li>
+                    <p>- Siempre puedes ponerte en contacto con el soporte técnico utilizando nuestro <a target="_blank" href="">bot de Telegram</a> o
+                        <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScaclArTOfGkDEfLehT6o3wvvI2kgPE5wAdCbFMiJIAnubk8g/viewform?usp=sf_link">
+                            enviar una solicitud en el formulario de Google
+                        </a>
+                    </p>
                 </ul>
 
-                <h4 >descripción del programa</h4>
-                <p>El producto de software RT Calculator está diseñado para extraer una raíz cuadrada de los números.</p>
-                <p>Su interfaz UI incluye:</p>
+                <h4>Descripción del Programa</h4>
+                <p>El producto de software "Calculadora de Raíces Cuadradas (SQRT)" está diseñado para extraer la raíz cuadrada de los números.</p>
+                <p>Su interfaz gráfica de usuario (GUI) incluye:</p>
                 <ul>
-                    <li>Una ventana para entrar en el indicador de raíz</li>
-                    <li>Ventana para entrar en el número de caracteres después del decimal</li>
-                    <li>Ventana para la introducción de la expresión computacional</li>
-                    <li>Ventana de Salida</li>
-                    <li>29 botones para introducir la expresión</li>
-                    <li>Menú del interruptor del lenguaje</li>
-                    <p>Puede introducir expresiones no sólo por interfaz gráfica, sino también por teclado.</p>
+                    <li>Ventana de entrada para el valor de la raíz</li>
+                    <li>Ventana de entrada para la cantidad de decimales</li>
+                    <li>Ventana de entrada para la expresión a calcular</li>
+                    <li>Ventana de salida de resultados</li>
+                    <li>29 botones para ingresar expresiones</li>
+                    <li>Menú de cambio de idioma</li>
+                    <p>Puedes ingresar expresiones no solo a través de la interfaz gráfica, sino también con el teclado.</p>
                 </ul>
 
-                <p>El programa se desarrolló a través de herramientas de desarrollo web: lenguaje de programación javascript, estilo css y lenguaje de marcado html</p>
+                <p>El programa fue desarrollado utilizando herramientas de desarrollo web: el lenguaje de programación JavaScript, el lenguaje de hojas de estilo CSS y el lenguaje de marcado HTML.</p>
 
-                <h4 >manual de usuario</h4>
-                <h5>comenzar</h5>
+                <h4>Manual del Usuario</h4>
+                <h5>Inicio</h5>
                 <ol>
+                    <li>Puedes descargar la última versión del programa desde <a target="_blank" href="https://github.com/Uraswa/RIS2023.Project1/releases">este enlace</a></li>
+                    <li>Descomprime el archivo en una carpeta separada</li>
+                    <li>Ejecuta el archivo sqrtCalculator.html</li>
+                    <p>Después de estos pasos, el programa estará listo para su uso.</p>
+                </ol>
 
-                    <li>descargar el archivo desde el sitio Github por enlace:</li>
-                    <a href="https://github.com/Uraswa/RIS2023.Project1"> https://github.com/Uraswa/RIS2023.Project1 </a>
-                    <li>Unarchivar el archivo en una carpeta separada</li>
-                    <li>Inicie el archivo índice.html en la carpeta Frontend</li>
-                    <p>Después de estas acciones, el programa está listo para su funcionamiento.</p>
-                </ol>
-                <h4 >perfil del programa</h4>
-                <ol >
-                    <li>'C' – Limpiando la ventana de entrada y salida</li>
-                    <li> '<-' – borrar el último símbolo de la expresión</li>
-                    <li>'sqrt' – extrayendo la raíz cuadrada</li>
-                    <li>'pi' es el número pi</li>
-                    <li>'%' es el equilibrio de la división de números</li>
-                    <li>'+'  – Adición matemática</li>
-                    <li>'sin' es el cálculo del sine del número</li>
-                    <li>'cos' – Número de computación cosina</li>
-                    <li>'tg' – Compute el número tangente</li>
-                    <li>'ctg' es el cálculo del número cotangen</li>
-                    <li>'-' – sustracción matemática</li>
-                    <li>'*'  – multiplicación matemática</li>
-                    <li>'/' es una división matemática</li>
-                    <li>' ^  – exponenciación</li>
-                    <li>'.' es el cortador de la parte completa y fraccionada del número</li>
-                    <li>'(' y ')' – paréntesis (utilizados para priorizar las operaciones)</li>
-                    <li>'='  – salida</li>
-                    <li>Los botones '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' se utilizan para inyectar números</li>
-                </ol>
-                <h4 >anuncios de políticas:</h4>
+                <h4>Referencia del Programa</h4>
                 <ol>
-                    <li>« Se hará un cálculo...» - El programa calcula la raíz del término introducido.</li>
-                    <li>« Error: El resultado del cálculo es demasiado pequeño o se ha producido una división por cero» - indica acción incorrecta (número por 0) o el resultado del cálculo es demasiado pequeño.</li>
-                    <li>«Error: ¡número negativo bajo la raíz de grado par!» - un intento de extraer la raíz de un grado uniforme de un número negativo</li>
-                    <li>«Error: Carácter desconocido» - un símbolo no apoyado por el programa se ha introducido en el campo de entrada</li>
-                    <li>«Valor exponente de raíz prolongado» - se inserta una expresión no-core en el campo de entrada de la raíz</li>
-                    <li>«Valor negativo bajo la raíz con exponente flotante» - existe un efecto incorrecto: la eliminación de la raíz con un grado fraccionario del número negativo</li>
-                    <li>«Error: Compruebe la corrección de la expresión introducida.» - error desconocido</li>
-                    <li>«Error: Número máximo de decimales  =  400» - más de 400 se inscriben en el campo de la entrada del número después del decimal</li>
-                    <li>«Error: El número de lugares decimales es un número entero» - en el campo de la entrada del número de signos después del decimal, se añade un número no integrado</li>
-                    <li>«Error: Número de lugares decimales es un número entero no negativo» - número negativo introducido en el campo de entrada del número después del decimal</li>
-                    <li>«Error: El resultado de cálculo es demasiado grande o se ha producido una división por cero» - indica la acción incorrecta (número por 0) o el resultado del cálculo es demasiado grande</li>
-                    <li>«Error: variable desconocida» - se ha introducido una variable en el campo de entrada</li>
-                    <li>«Error: Un símbolo especial desconocido» - un símbolo especial no apoyado por el programa se ha introducido en el campo de entrada</li>
+                    <li>'C' – limpiar la ventana de entrada y salida</li>
+                    <li>'<-' – eliminar el último carácter en la expresión</li>
+                    <li>'sqrt' – extracción de la raíz cuadrada. El comportamiento de la raíz varía: si se pasa un número no negativo como argumento,
+                        la raíz se comportará como aritmética; si se pasa un número negativo como argumento, la raíz devolverá un número positivo * i.</li>
+                    <li>'pi' – el número pi</li>
+                    <li>'%' – resto de la división por un número</li>
+                    <li>'+' – suma matemática</li>
+                    <li>'sin' – cálculo del seno de un número</li>
+                    <li>'cos' – cálculo del coseno de un número</li>
+                    <li>'tg' – cálculo de la tangente de un número</li>
+                    <li>'-' – resta matemática</li>
+                    <li>'*' – multiplicación matemática</li>
+                    <li>'/' – división matemática</li>
+                    <li>'^' – exponentiación</li>
+                    <li>'.' – separador de punto decimal</li>
+                    <li>'(' y ')' – paréntesis (usados para especificar el orden de las operaciones)</li>
+                    <li>'=' – mostrar el resultado</li>
+                    <li>'e' – constante exponencial (número de Euler)</li>
+                    <li>'i' – unidad imaginaria</li>
+                    <li>Los botones '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' se utilizan para ingresar números</li>
+                </ol>
+
+                <h4>Notificaciones del Programa</h4>
+                <ol>
+                    <li>"Calculando..." - el programa está calculando la raíz cuadrada de la expresión ingresada</li>
+                    <li>"Error: Resultado demasiado pequeño o se produjo una división por cero" - se especifica una acción incorrecta (dividir un número por 0) o el resultado del cálculo es demasiado pequeño.</li>
+                    <li>"Error: Número negativo bajo raíz par!" - intento de extraer una raíz par de un número negativo.</li>
+                    <li>"Error: Carácter desconocido" - se ingresa un carácter no admitido en el campo de entrada de la expresión.</li>
+                    <li>"Error: Exponente de raíz incorrecto" - la entrada para el valor de la raíz es incorrecta.</li>
+                    <li>"Número negativo bajo raíz fraccionaria" - la expresión contiene una operación incorrecta: extraer una raíz fraccionaria de un número negativo.</li>
+                    <li>"Error: Verifique la corrección de la expresión ingresada" - error desconocido.</li>
+                    <li>"Error: Máximo número de decimales = 400" - se ingresa un número mayor que 400 en el campo de entrada de decimales.</li>
+                    <li>"Error: El número de decimales debe ser un número entero" - se ingresa un número no entero en el campo de entrada de decimales.</li>
+                    <li>"Error: El número de decimales debe ser un número no negativo" - se ingresa un número negativo en el campo de entrada de decimales.</li>
+                    <li>"Error: Resultado demasiado grande o se produjo una división por cero" - se especifica una acción incorrecta (dividir un número por 0) o el resultado del cálculo es demasiado grande.</li>
+                    <li>"Error: Variable desconocida" - se ingresa una variable en el campo de entrada de la expresión.</li>
+                    <li>"Error: Carácter especial desconocido" - se ingresa un carácter especial no admitido por el programa en el campo de entrada de la expresión.</li>
                 </ol>
             </div>
 
