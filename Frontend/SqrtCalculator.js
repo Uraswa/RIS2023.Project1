@@ -181,16 +181,30 @@ function Calculate(expression, precisionVal, rootExponent, allDoneCallback) {
     }
 
     //null is special case, because there is no -0 in math
-    console.log(expressionValue);
-    if (math.equal(expressionValue, "0")){
-        allDoneCallback({
-            success: true,
-            values: [{
-                value: "0"
-            }]
-        });
-        return;
+
+    try {
+        let equalZero = math.equal(expressionValue, "0")
+        if (equalZero){
+            allDoneCallback({
+                success: true,
+                values: [{
+                    value: "0"
+                }]
+            });
+            return;
+        }
+    } catch (e) {
+
+        if (e instanceof TypeError){
+            allDoneCallback({
+                error: 'err_nan'
+            });
+            return;
+        }
+
     }
+
+
 
     if (rootExponent == "" || rootExponent == "0" || rootExponent === 0) {
         allDoneCallback({
